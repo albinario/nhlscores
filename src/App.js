@@ -19,6 +19,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
+        {/* header will go here */}
         <GameList games={this.state.games} />
       </div>
     );
