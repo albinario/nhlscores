@@ -6,7 +6,7 @@ class GameList extends Component {
     return (
       <div className="">
         {
-          this.props.games.reverse().map(game => {
+          this.props.games.map(game => {
               return (
                 <Game
                   key={game.gameId}

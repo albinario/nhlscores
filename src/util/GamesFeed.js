@@ -10,7 +10,7 @@ const GamesFeed = {
          return response.json();
        }).then(jsonResponse => {
          if (jsonResponse) {
-           return jsonResponse.games.filter(ps => ps.schedule.playedStatus === "COMPLETED").map(game => {
+           return jsonResponse.games.filter(ps => ps.schedule.playedStatus === "COMPLETED").reverse().map(game => {
              return {
                gameId: game.schedule.id,
                homeTeam: game.schedule.homeTeam.abbreviation,
