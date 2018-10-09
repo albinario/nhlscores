@@ -18,7 +18,6 @@ class App extends Component {
 
   render() {
     return (
-      //this is a comment
       <div className="container">
         <GameList games={this.state.games} />
       </div>
