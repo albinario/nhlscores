@@ -1,8 +1,9 @@
-import Connect from './Connect';
+import Config from './Config';
+import Connect from '.Connect';
 
 const GamesFeed = {
   getGames() {
-    return Connect.connect().then(response => {
+    Connect.connect().then(response => {
          return response.json();
        }).then(jsonResponse => {
          if (jsonResponse) {
