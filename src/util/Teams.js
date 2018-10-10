@@ -1,26 +1,28 @@
-import Config from './Config';
-import Connect from '.Connect';
+import Connect from './Connect';
 
-const GamesFeed = {
-  getGames() {
-    Connect.connect().then(response => {
-         return response.json();
-       }).then(jsonResponse => {
-         if (jsonResponse) {
-           return jsonResponse.games.filter(ps => ps.schedule.playedStatus === "COMPLETED").reverse().map(game => {
-             return {
-               gameId: game.schedule.id,
-               homeTeam: game.schedule.homeTeam.abbreviation,
-               homeScore: game.score.homeScoreTotal,
-               awayTeam: game.schedule.awayTeam.abbreviation,
-               awayScore: game.score.awayScoreTotal
-             }
-           });
-         }
+const Teams = {
+  getTeamInfo(teamId) {
+    return Connect.connectMainAPI().then(jsonResponse => {
+      if (jsonResponse) {
+        const teamInfo = jsonResponse.references.teamReferences.filter(id => {
+          return teamId === id.id;
+        });
+        return teamInfo[0];
+
+
+
+        // (team => {
+        //   //console.log(team);
+        //   return {
+        //     city: team.city,
+        //     name: team.name
+        //   }
+        // });
+      }
        }).catch(err => {
          console.log(err);
        });
   }
 }
 
-export default GamesFeed;
+export default Teams;
