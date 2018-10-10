@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GamesFeed from './util/GamesFeed';
 import GameList from './components/GameList/GameList';
+import Header from './components/Header/Header';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        {/* header will go here */}
+        <Header />
         <GameList games={this.state.games} />
       </div>
     );

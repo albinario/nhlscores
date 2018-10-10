@@ -7,6 +7,13 @@ const Connect = {
         "Authorization": `Basic ` + btoa(`${Config.apiKey}` + `:` + `${Config.pass}`)
       }
     })
+  },
+  getTodaysGames() {
+    return fetch(`${Config.url1819}?date=tomorrow`, {
+      headers: {
+        "Authorization": `Basic ` + btoa(`${Config.apiKey}` + `:` + `${Config.pass}`)
+      }
+    })
   }
 }
 
