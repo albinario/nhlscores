@@ -9,12 +9,14 @@ class GameList extends Component {
           this.props.games.map(game => {
               return (
                 <Game
-                  key={game.gameId}
-                  homeTeam={game.homeTeam}
-                  homeScore={game.homeScore}
-                  awayTeam={game.awayTeam}
-                  awayScore={game.awayScore}
-                />
+                key={game.gameId}
+                homeTeamCity={game.homeTeamCity}
+                homeTeamName={game.homeTeamName}
+                homeScore={game.homeScore}
+                awayTeamCity={game.awayTeamCity}
+                awayTeamName={game.awayTeamName}
+                awayScore={game.awayScore}
+              />
               );
           })
         }
