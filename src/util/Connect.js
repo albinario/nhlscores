@@ -1,13 +1,20 @@
 import Config from './Config';
 
 const Connect = {
-  connectMainAPI() {
-    return fetch(`${Config.url1819}`, {
+  connect(date) {
+    //Receives date from App and passed into URL
+    let selectedDate;
+    if(date) {
+       selectedDate = `${Config.urlDate}${date}`;
+    }
+    else {
+      //handle error
+    }
+  
+    return fetch(selectedDate, {
       headers: {
         "Authorization": `Basic ` + btoa(`${Config.apiKey}` + `:` + `${Config.pass}`)
       }
-    }).then(response => {
-      return response.json();
     })
   }
 }
