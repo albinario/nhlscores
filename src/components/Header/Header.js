@@ -28,25 +28,34 @@ class Header extends Component {
         this.getTitle();
     }
     
-    increaseDate() {
-        this.setState({day: this.state.day + 1})
+    async increaseDate() {
+        await this.setState({day: this.state.day + 1})
         this.setDate();
     }
 
-    decreaseDate() {
-        this.setState({day: this.state.day - 1})
+    async decreaseDate() {
+        await this.setState({day: this.state.day - 1})
         this.setDate();
     }
 
     getTitle() {
         const today = moment(new Date).format('YYYYMMDD');
-        if(today === this.state.date) {
+        const tomorrow = moment(new Date).add(1, 'days').format('YYYYMMDD');
+        const yesterday = moment(new Date).subtract(1, 'days').format('YYYYMMDD');
+        const currentDate = this.state.date;
+        if(today === currentDate) {
             return "Today";
         }
-        else {
-            return this.state.date;
+        else if(tomorrow === currentDate) {
+            return "Tomorrow";
         }
-        
+        else if(yesterday === currentDate) {
+            return "Yesterday";
+        }
+        else {
+            const beautifyOtherDays = moment(currentDate).format('MMMM Do YYYY');;
+            return beautifyOtherDays;
+        }   
     }
 
     render() {

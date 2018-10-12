@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   componentWillMount() {   
-    GamesFeed.getGames('20181008').then(games => {
+    GamesFeed.getGames('today').then(games => {
       this.setState({games: games})
     });  
   }

@@ -6,9 +6,10 @@ const GamesFeed = {
     return Connect.connect(date).then(response => {
          return response.json();
        }).then(jsonResponse => {
+         console.log(jsonResponse)
          //Now we are returning games on specific dates  
          return getGames(jsonResponse);
-                  
+
        }).catch(err => {
          console.log(err);
        });
