@@ -10,6 +10,7 @@ class GameList extends Component {
               return (
                 <Game
                   key={game.gameId}
+                  gameId={game.gameId}
                   homeTeamCity={game.homeTeamCity}
                   homeTeamName={game.homeTeamName}
                   homeScore={game.homeScore}
