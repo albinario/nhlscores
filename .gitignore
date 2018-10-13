@@ -23,9 +23,7 @@ yarn.lock
 
 node_modules/
 src/util/Config.js
-
 package-lock.json
-package.json
 
 # trash
 src/util/Teams.js
