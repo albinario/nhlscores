@@ -4,14 +4,16 @@ const GamesFeed = {
   getGames() {
     return Connect.connectMainAPI().then(jsonResponse => {
       if (jsonResponse) {
-        return jsonResponse.games.filter(ps => ps.schedule.playedStatus === "COMPLETED").reverse().map(game => {
+        return jsonResponse.games.map(game => {
           const homeTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.homeTeam.id; });
           const awayTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.awayTeam.id; });
           return {
             gameId: game.schedule.id,
+            homeTeamId: homeTeamInfo[0].id,
             homeTeamCity: homeTeamInfo[0].city,
             homeTeamName: homeTeamInfo[0].name,
             homeScore: game.score.homeScoreTotal,
+            awayTeamId: awayTeamInfo[0].id,
             awayTeamCity: awayTeamInfo[0].city,
             awayTeamName: awayTeamInfo[0].name,
             awayScore: game.score.awayScoreTotal
@@ -21,6 +23,15 @@ const GamesFeed = {
     }).catch(err => {
       console.log(err);
     });
+  },
+  getPeriods(gameId) {
+    return Connect.connectGameAPI(gameId).then(jsonResponse => {
+      if (jsonResponse) {
+        return jsonResponse.scoring.periods;
+      }
+    }).catch(err => {
+      console.log(err);
+    })
   }
 }
 

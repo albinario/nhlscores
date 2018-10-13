@@ -6,13 +6,16 @@ class GameList extends Component {
     return (
       <div className="">
         {
-          this.props.games.map(game => {
+          this.props.games.map((game, index) => {
               return (
                 <Game
-                  key={game.gameId}
+                  key={index}
+                  gameId={game.gameId}
+                  homeTeamId={game.homeTeamId}
                   homeTeamCity={game.homeTeamCity}
                   homeTeamName={game.homeTeamName}
                   homeScore={game.homeScore}
+                  awayTeamId={game.awayTeamId}
                   awayTeamCity={game.awayTeamCity}
                   awayTeamName={game.awayTeamName}
                   awayScore={game.awayScore}
