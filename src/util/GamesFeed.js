@@ -4,7 +4,7 @@ const GamesFeed = {
   getGames() {
     return Connect.connectMainAPI().then(jsonResponse => {
       if (jsonResponse) {
-        return jsonResponse.games.map(game => {
+        return jsonResponse.games.reverse().map(game => {
           const homeTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.homeTeam.id; });
           const awayTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.awayTeam.id; });
           return {

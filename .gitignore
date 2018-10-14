@@ -19,11 +19,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-yarn.lock
 
 node_modules/
 src/util/Config.js
-package-lock.json
 
 # trash
-src/util/Teams.js
