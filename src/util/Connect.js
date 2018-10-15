@@ -4,7 +4,7 @@ const headers = { "Authorization": `Basic ` + btoa(`${Config.apiKey}:${Config.pa
 
 const Connect = {
   connectMainAPI() {
-    return fetch(`${Config.apiUrl}games.json?status=final&limit=2`, {
+    return fetch(`${Config.apiUrl}games.json?status=final`, {
       headers: headers
     }).then(response => {
       return response.json();

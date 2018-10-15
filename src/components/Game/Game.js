@@ -50,6 +50,10 @@ class Game extends Component {
   render() {
     let homeScore = 0;
     let awayScore = 0;
+    let chevronGoals = "glyphicon glyphicon-chevron-down";
+    let chevronPlayerStats = "glyphicon glyphicon-chevron-down";
+    if (this.state.showGoals) {chevronGoals = "glyphicon glyphicon-chevron-up";}
+    if (this.state.showPlayerStats) {chevronPlayerStats = "glyphicon glyphicon-chevron-up";}
     return (
       <div className="well well-sm">
         <div onClick={() => this.setState({showGoals: !this.state.showGoals})}>
@@ -57,6 +61,7 @@ class Game extends Component {
             <span className="pull-right">{this.props.awayScore}</span></p>
           <p><img src={Logos[this.props.homeTeamId]} alt="" />{this.props.homeTeamCity} {this.props.homeTeamName} ({this.state.homeWins}-{this.state.homeLosses}-{this.state.homeOvertimeLosses})
             <span className="pull-right">{this.props.homeScore}</span></p>
+          <p className="text-center small"><span className={chevronGoals}></span></p>
         </div>
         <Collapse in={this.state.showGoals} onClick={() => this.setState({showPlayerStats: !this.state.showPlayerStats})}>
           <div>
@@ -78,6 +83,7 @@ class Game extends Component {
                 );
               })
             }
+            <p className="text-center small"><span className={chevronPlayerStats}></span></p>
             <Collapse in={this.state.showPlayerStats}>
               <div>
                 <PlayerStats />

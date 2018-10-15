@@ -7,6 +7,12 @@ const GamesFeed = {
         return jsonResponse.games.reverse().map(game => {
           const homeTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.homeTeam.id; });
           const awayTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.awayTeam.id; });
+          // const homePeriods = game.score.periods.map(period => {
+          //   console.log(period);
+          //   return {
+          //
+          //   }
+          // });
           return {
             gameId: game.schedule.id,
             homeTeamId: homeTeamInfo[0].id,
