@@ -3,8 +3,8 @@ import Config from './Config';
 const headers = { 'Authorization': 'Basic ' + btoa(`${Config.apiKey}:${Config.pass}`) }
 
 const Connect = {
-  connectMainAPI() {
-    return fetch(`${Config.apiUrl}games.json?status=final`, {
+  connectMainAPI(date) {
+    return fetch(`${Config.urlDate}${date}`, {
       headers: headers
     }).then(response => {
       return response.json();
