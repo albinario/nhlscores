@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import './Header.css';
 
 class Header extends Component {
     constructor(props) {
@@ -40,9 +41,9 @@ class Header extends Component {
     }
 
     getTitle() {
-        const today = moment(new Date).format('YYYYMMDD');
-        const tomorrow = moment(new Date).add(1, 'days').format('YYYYMMDD');
-        const yesterday = moment(new Date).subtract(1, 'days').format('YYYYMMDD');
+        const today = moment(new Date()).format('YYYYMMDD');
+        const tomorrow = moment(new Date()).add(1, 'days').format('YYYYMMDD');
+        const yesterday = moment(new Date()).subtract(1, 'days').format('YYYYMMDD');
         const currentDate = this.state.date;
         if(today === currentDate) {
             return "Today";
@@ -62,15 +63,15 @@ class Header extends Component {
     render() {
         const title = this.getTitle();
         return (
-            <div className="d-flex justify-content-between">
-                <span className="glyphicon glyphicon-menu-left"
+            <div className="d-flex justify-content-between header">
+                <span className="glyphicon glyphicon-chevron-left"
                 onClick={this.decreaseDate}
-                >left</span>       
+                ></span>       
                 <h1>{title}</h1>
                 <span 
-                className="glyphicon glyphicon-menu-right"
+                className="glyphicon glyphicon-chevron-right"
                 onClick={this.increaseDate}
-                >right</span>
+                ></span>
             </div>
         )
 
