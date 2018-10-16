@@ -1,6 +1,6 @@
 import Config from './Config';
 
-const headers = { "Authorization": `Basic ` + btoa(`${Config.apiKey}:${Config.pass}`) }
+const headers = { 'Authorization': 'Basic ' + btoa(`${Config.apiKey}:${Config.pass}`) }
 
 const Connect = {
   connectMainAPI() {

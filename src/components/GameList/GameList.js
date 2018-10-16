@@ -15,10 +15,12 @@ class GameList extends Component {
                 homeTeamCity={game.homeTeamCity}
                 homeTeamName={game.homeTeamName}
                 homeScore={game.homeScore}
+                homePeriods={game.homePeriods}
                 awayTeamId={game.awayTeamId}
                 awayTeamCity={game.awayTeamCity}
                 awayTeamName={game.awayTeamName}
                 awayScore={game.awayScore}
+                awayPeriods={game.awayPeriods}
               />
             );
           })

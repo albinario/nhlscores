@@ -11,15 +11,15 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showGoals: false,
-      goals: [],
-      showPlayerStats: false,
       homeWins: 0,
       homeLosses: 0,
       homeOvertimeLosses: 0,
       awayWins: 0,
       awayLosses: 0,
-      awayOvertimeLosses: 0
+      awayOvertimeLosses: 0,
+      showGoals: false,
+      goals: [],
+      showPlayerStats: false
     }
   }
 
@@ -58,9 +58,9 @@ class Game extends Component {
       <div className="well well-sm">
         <div onClick={() => this.setState({showGoals: !this.state.showGoals})}>
           <p><img src={Logos[this.props.awayTeamId]} alt="" />{this.props.awayTeamCity} {this.props.awayTeamName} ({this.state.awayWins}-{this.state.awayLosses}-{this.state.awayOvertimeLosses})
-            <span className="pull-right">{this.props.awayScore}</span></p>
+            <span className="pull-right"><strong>{this.props.awayScore}</strong> {this.props.awayPeriods.map((period, index) => { return <span key={index}> {period} </span>})} </span></p>
           <p><img src={Logos[this.props.homeTeamId]} alt="" />{this.props.homeTeamCity} {this.props.homeTeamName} ({this.state.homeWins}-{this.state.homeLosses}-{this.state.homeOvertimeLosses})
-            <span className="pull-right">{this.props.homeScore}</span></p>
+            <span className="pull-right"><strong>{this.props.homeScore}</strong> {this.props.homePeriods.map((period, index) => { return <span key={index}> {period} </span>})} </span></p>
           <p className="text-center small"><span className={chevronGoals}></span></p>
         </div>
         <Collapse in={this.state.showGoals} onClick={() => this.setState({showPlayerStats: !this.state.showPlayerStats})}>
