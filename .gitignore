@@ -22,4 +22,5 @@ yarn-error.log*
 
 node_modules/
 src/util/Config.js
-src/util/Teams.js
+
+# trash
