@@ -19,6 +19,7 @@ class Header extends Component {
        this.setState({
            date: newDate
        })
+       this.decreaseDate();
     }
 
     setDate() {
@@ -44,7 +45,7 @@ class Header extends Component {
         const yesterday = moment(new Date).subtract(1, 'days').format('YYYYMMDD');
         const currentDate = this.state.date;
         if(today === currentDate) {
-            return "Yesterday";
+            return "Today";
         }
         else if(tomorrow === currentDate) {
             return "Tomorrow";

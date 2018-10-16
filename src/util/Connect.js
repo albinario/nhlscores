@@ -12,7 +12,7 @@ const Connect = {
     }
     return fetch(selectedDate, {
       headers: {
-        "Authorization": `Basic ` + btoa(`${Config.apiKey}` + `:` + `${Config.pass}`)
+        "Authorization": 'Basic ' + btoa(`${Config.apiKey}:${Config.pass}`)
       }
     })
   }
