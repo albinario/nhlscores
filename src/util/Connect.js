@@ -4,7 +4,7 @@ const headers = { 'Authorization': 'Basic ' + btoa(`${Config.apiKey}:${Config.pa
 
 const Connect = {
   connectMainAPI(date) {
-    return fetch(`${Config.urlDate}${date}`, {
+    return fetch(`${Config.apiUrl}games.json?date=${date}`, {
       headers: headers
     }).then(response => {
       return response.json();

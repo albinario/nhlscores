@@ -12,10 +12,10 @@ class App extends Component {
     this.onDateChange = this.onDateChange.bind(this);
   }
 
-  componentWillMount() {   
+  componentWillMount() {
     GamesFeed.getGames('yesterday').then(games => {
       this.setState({games: games})
-    });  
+    });
   }
 
   onDateChange(dateFromHeader) {

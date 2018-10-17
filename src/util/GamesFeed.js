@@ -1,25 +1,17 @@
 import Connect from './Connect';
 
 const GamesFeed = {
-  getGames(date) {
-    return Connect.connectMainAPI(date).then(response => {
-         return response.json();
-       }).then(jsonResponse => { 
-          return jsonResponse.games.map((game)=>{
-          const homeTeamInfo = jsonResponse.references.teamReferences.filter((team) => { 
-              return team.id === game.schedule.homeTeam.id; 
-          });
-  
-          const awayTeamInfo = jsonResponse.references.teamReferences.filter((team) => { 
-              return team.id === game.schedule.awayTeam.id; 
-          });
-            let homePeriods = [];
+  getGames(date) {  
+    return Connect.connectMainAPI(date).then(jsonResponse => {
+          return jsonResponse.games.map((game)=> {
+          const homeTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.homeTeam.id; });
+          const awayTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.awayTeam.id; });
+          let homePeriods = [];
           let awayPeriods = [];
           game.score.periods.forEach(period => {
             homePeriods.push(period.homeScore);
             awayPeriods.push(period.awayScore);
           });
-  
           return {
               gameId: game.schedule.id,
               homeTeamId: homeTeamInfo[0].id,
@@ -34,7 +26,6 @@ const GamesFeed = {
               awayPeriods: awayPeriods
             }
         });
-      }
     }).catch(err => {
       console.log(err);
     });

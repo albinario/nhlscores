@@ -15,8 +15,8 @@ class Header extends Component {
         this.getTitle = this.getTitle.bind(this);
       }
 
-    componentWillMount() { 
-       var newDate = moment().format('YYYYMMDD');
+    componentWillMount() {
+       let newDate = moment().format('YYYYMMDD');
        this.setState({
            date: newDate
        })
@@ -24,12 +24,12 @@ class Header extends Component {
     }
 
     setDate() {
-        var newDate = moment(new Date()).add(this.state.day, 'days').format('YYYYMMDD');
+        let newDate = moment(new Date()).add(this.state.day, 'days').format('YYYYMMDD');
         this.setState({date: newDate});
         this.props.onDateChange(this.state.date);
         this.getTitle();
     }
-    
+
     async increaseDate() {
         await this.setState({day: this.state.day + 1})
         this.setDate();
@@ -57,26 +57,21 @@ class Header extends Component {
         else {
             const beautifyOtherDays = moment(currentDate).format('MMMM Do YYYY');;
             return beautifyOtherDays;
-        }   
+        }
     }
 
     render() {
         const title = this.getTitle();
         return (
-            <div className="d-flex justify-content-between header">
-                <span className="glyphicon glyphicon-chevron-left"
-                onClick={this.decreaseDate}
-                ></span>       
-                <h1>{title}</h1>
-                <span 
-                className="glyphicon glyphicon-chevron-right"
-                onClick={this.increaseDate}
-                ></span>
+            <div className="row header">
+              <div className="col-xs-1"><span className="glyphicon glyphicon-chevron-left" onClick={this.decreaseDate}></span></div>
+              <div className="col-xs-9 col-sm-10"><h2 className="text-center">{title}</h2></div>
+              <div className="col-xs-1"><span className="glyphicon glyphicon-chevron-right pull-right" onClick={this.increaseDate}></span></div>
             </div>
         )
 
     }
 
 }
-        
+
 export default Header;

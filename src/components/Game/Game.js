@@ -5,7 +5,7 @@ import TeamsFeed from '../../util/TeamsFeed';
 import Logos from '../../util/Logos';
 import Goal from '../Goal/Goal';
 import PlayerStats from '../PlayerStats/PlayerStats';
-var Collapse = require('react-bootstrap/lib/Collapse');
+let Collapse = require('react-bootstrap/lib/Collapse');
 
 class Game extends Component {
   constructor(props) {
@@ -57,9 +57,9 @@ class Game extends Component {
     return (
       <div className="well well-sm">
         <div onClick={() => this.setState({showGoals: !this.state.showGoals})}>
-          <p><img src={Logos[this.props.awayTeamId]} alt="" />{this.props.awayTeamCity} {this.props.awayTeamName} ({this.state.awayWins}-{this.state.awayLosses}-{this.state.awayOvertimeLosses})
+          <p><img src={Logos[this.props.awayTeamId]} alt="" /><span className="hidden-xs">{this.props.awayTeamCity} </span>{this.props.awayTeamName} ({this.state.awayWins}-{this.state.awayLosses}-{this.state.awayOvertimeLosses})
             <span className="pull-right"><strong>{this.props.awayScore}</strong> {this.props.awayPeriods.map((period, index) => { return <span key={index}> {period} </span>})} </span></p>
-          <p><img src={Logos[this.props.homeTeamId]} alt="" />{this.props.homeTeamCity} {this.props.homeTeamName} ({this.state.homeWins}-{this.state.homeLosses}-{this.state.homeOvertimeLosses})
+          <p><img src={Logos[this.props.homeTeamId]} alt="" /><span className="hidden-xs">{this.props.homeTeamCity} </span>{this.props.homeTeamName} ({this.state.homeWins}-{this.state.homeLosses}-{this.state.homeOvertimeLosses})
             <span className="pull-right"><strong>{this.props.homeScore}</strong> {this.props.homePeriods.map((period, index) => { return <span key={index}> {period} </span>})} </span></p>
           <p className="text-center small"><span className={chevronGoals}></span></p>
         </div>
