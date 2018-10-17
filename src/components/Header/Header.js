@@ -7,7 +7,7 @@ class Header extends Component {
         super(props);
         this.state = {
           date: null,
-          day: 0
+          day: -1
         }
         this.increaseDate = this.increaseDate.bind(this);
         this.decreaseDate = this.decreaseDate.bind(this);
@@ -16,11 +16,11 @@ class Header extends Component {
       }
 
     componentWillMount() {
-       let newDate = moment().format('YYYYMMDD');
+       let newDate = moment().subtract(1, 'days').format('YYYYMMDD');
        this.setState({
            date: newDate
        })
-       this.decreaseDate();
+       //this.decreaseDate();
     }
 
     setDate() {

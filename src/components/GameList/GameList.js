@@ -29,7 +29,7 @@ class GameList extends Component {
       </div>
       :
       <div>
-        No games Scheduled for today
+        No games scheduled this day
       </div>
     );
   }

@@ -5,15 +5,18 @@ import TeamsFeed from '../../util/TeamsFeed';
 import Logos from '../../util/Logos';
 import Goal from '../Goal/Goal';
 import PlayerStats from '../PlayerStats/PlayerStats';
-let Collapse = require('react-bootstrap/lib/Collapse');
+const Collapse = require('react-bootstrap/lib/Collapse');
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      gameId: this.props.gameId,
+      homeTeamId: this.props.homeTeamId,
       homeWins: 0,
       homeLosses: 0,
       homeOvertimeLosses: 0,
+      awayTeamId: this.props.awayTeamId,
       awayWins: 0,
       awayLosses: 0,
       awayOvertimeLosses: 0,
@@ -24,21 +27,48 @@ class Game extends Component {
   }
 
   componentWillMount() {
-    GamesFeed.getPeriods(this.props.gameId).then(periods => {
+    GamesFeed.getPeriods(this.state.gameId).then(periods => {
       return periods.map(period => {
         return period.scoringPlays.map(goal => {
           return this.state.goals.push(goal);
         })
       })
     })
-    TeamsFeed.getTeamStats(this.props.homeTeamId).then(stats => {
+    TeamsFeed.getTeamStats(this.state.homeTeamId).then(stats => {
       this.setState({
         homeWins: stats.standings.wins + stats.standings.overtimeWins,
         homeLosses: stats.standings.losses,
         homeOvertimeLosses: stats.standings.overtimeLosses
       })
     })
-    TeamsFeed.getTeamStats(this.props.awayTeamId).then(stats => {
+    TeamsFeed.getTeamStats(this.state.awayTeamId).then(stats => {
+      this.setState({
+        awayWins: stats.standings.wins + stats.standings.overtimeWins,
+        awayLosses: stats.standings.losses,
+        awayOvertimeLosses: stats.standings.overtimeLosses
+      })
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.gameId !== this.state.gameId) {
+      this.setState({goals: []})
+    }
+    GamesFeed.getPeriods(nextProps.gameId).then(periods => {
+      return periods.map(period => {
+        return period.scoringPlays.map(goal => {
+          return this.state.goals.push(goal);
+        })
+      })
+    })
+    TeamsFeed.getTeamStats(nextProps.homeTeamId).then(stats => {
+      this.setState({
+        homeWins: stats.standings.wins + stats.standings.overtimeWins,
+        homeLosses: stats.standings.losses,
+        homeOvertimeLosses: stats.standings.overtimeLosses
+      })
+    })
+    TeamsFeed.getTeamStats(nextProps.awayTeamId).then(stats => {
       this.setState({
         awayWins: stats.standings.wins + stats.standings.overtimeWins,
         awayLosses: stats.standings.losses,
@@ -67,15 +97,16 @@ class Game extends Component {
           <div>
             {
               this.state.goals.map((goal, index) => {
-                if (goal.team.id === this.props.homeTeamId) {
+                if (goal.team.id === this.props.homeTeamId && homeScore < this.props.homeScore) {
                   homeScore++;
-                } else {
+                } else if (awayScore < this.props.awayScore) {
                   awayScore++;
                 }
-                const playDesc = goal.playDescription.replace("Goal scored by", "").replace("(Empty Net)", "");
+                const playDesc = goal.playDescription.replace("Goal scored by", "").replace("(Empty Net)", "").replace("Shootout attempt by ", "(PS: ").replace(", scored!", ")");
                 return (
                   <Goal
                     key={index}
+                    scoringTeamId={goal.team.id}
                     homeScore={homeScore}
                     awayScore={awayScore}
                     playDesc={playDesc}
