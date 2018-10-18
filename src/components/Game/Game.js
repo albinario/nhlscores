@@ -4,6 +4,7 @@ import GamesFeed from '../../util/GamesFeed';
 import TeamsFeed from '../../util/TeamsFeed';
 import Logos from '../../util/Logos';
 import Goal from '../Goal/Goal';
+import GoalieStatsList from '../GoalieStatsList/GoalieStatsList';
 import PlayerStats from '../PlayerStats/PlayerStats';
 const Collapse = require('react-bootstrap/lib/Collapse');
 
@@ -16,10 +17,12 @@ class Game extends Component {
       homeWins: 0,
       homeLosses: 0,
       homeOvertimeLosses: 0,
+      homeGoalies: [],
       awayTeamId: this.props.awayTeamId,
       awayWins: 0,
       awayLosses: 0,
       awayOvertimeLosses: 0,
+      awayGoalies: [],
       showGoals: false,
       goals: [],
       showPlayerStats: false
@@ -27,13 +30,6 @@ class Game extends Component {
   }
 
   componentWillMount() {
-    GamesFeed.getPeriods(this.state.gameId).then(periods => {
-      return periods.map(period => {
-        return period.scoringPlays.map(goal => {
-          return this.state.goals.push(goal);
-        })
-      })
-    })
     TeamsFeed.getTeamStats(this.state.homeTeamId).then(stats => {
       this.setState({
         homeWins: stats.standings.wins + stats.standings.overtimeWins,
@@ -48,33 +44,56 @@ class Game extends Component {
         awayOvertimeLosses: stats.standings.overtimeLosses
       })
     })
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.gameId !== this.state.gameId) {
-      this.setState({goals: []})
-    }
-    GamesFeed.getPeriods(nextProps.gameId).then(periods => {
+    GamesFeed.getPeriods(this.state.gameId).then(periods => {
       return periods.map(period => {
         return period.scoringPlays.map(goal => {
           return this.state.goals.push(goal);
         })
       })
     })
-    TeamsFeed.getTeamStats(nextProps.homeTeamId).then(stats => {
+    GamesFeed.getGoalies(this.state.gameId).then(goalies => {
       this.setState({
-        homeWins: stats.standings.wins + stats.standings.overtimeWins,
-        homeLosses: stats.standings.losses,
-        homeOvertimeLosses: stats.standings.overtimeLosses
+        homeGoalies: goalies.homeGoalies,
+        awayGoalies: goalies.awayGoalies
       })
     })
-    TeamsFeed.getTeamStats(nextProps.awayTeamId).then(stats => {
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.gameId !== this.state.gameId) {
       this.setState({
-        awayWins: stats.standings.wins + stats.standings.overtimeWins,
-        awayLosses: stats.standings.losses,
-        awayOvertimeLosses: stats.standings.overtimeLosses
+        homeTeamId: nextProps.homeTeamId,
+        awayTeamId: nextProps.awayTeamId,
+        goals: []
       })
-    })
+      TeamsFeed.getTeamStats(nextProps.homeTeamId).then(stats => {
+        this.setState({
+          homeWins: stats.standings.wins + stats.standings.overtimeWins,
+          homeLosses: stats.standings.losses,
+          homeOvertimeLosses: stats.standings.overtimeLosses
+        })
+      })
+      TeamsFeed.getTeamStats(nextProps.awayTeamId).then(stats => {
+        this.setState({
+          awayWins: stats.standings.wins + stats.standings.overtimeWins,
+          awayLosses: stats.standings.losses,
+          awayOvertimeLosses: stats.standings.overtimeLosses
+        })
+      })
+      GamesFeed.getPeriods(nextProps.gameId).then(periods => {
+        return periods.map(period => {
+          return period.scoringPlays.map(goal => {
+            return this.state.goals.push(goal);
+          })
+        })
+      })
+      GamesFeed.getGoalies(nextProps.gameId).then(goalies => {
+        this.setState({
+          homeGoalies: goalies.homeGoalies,
+          awayGoalies: goalies.awayGoalies
+        })
+      })
+    }
   }
 
   render() {
@@ -114,6 +133,12 @@ class Game extends Component {
                 );
               })
             }
+            <GoalieStatsList
+              homeGoalies={this.state.homeGoalies}
+              homeTeamId={this.state.homeTeamId}
+              awayGoalies={this.state.awayGoalies}
+              awayTeamId={this.state.awayTeamId}
+            />
             <p className="text-center small"><span className={chevronPlayerStats}></span></p>
             <Collapse in={this.state.showPlayerStats}>
               <div>
