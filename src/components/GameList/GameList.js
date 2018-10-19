@@ -3,10 +3,9 @@ import Game from '../Game/Game';
 
 class GameList extends Component {
   render() {
+    console.log("render GameList");
     return (
       this.props.games.length > 0 ?
-      <div className="">
-      {
         this.props.games.map((game, index) => {
           return (
             <Game
@@ -25,8 +24,6 @@ class GameList extends Component {
             />
           );
         })
-      }
-      </div>
       :
       <div>
         No games scheduled this day

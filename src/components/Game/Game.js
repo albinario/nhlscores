@@ -3,7 +3,7 @@ import './Game.css';
 import GamesFeed from '../../util/GamesFeed';
 import TeamsFeed from '../../util/TeamsFeed';
 import Logos from '../../util/Logos';
-import Goal from '../Goal/Goal';
+import GoalList from '../GoalList/GoalList';
 import GoalieStatsList from '../GoalieStatsList/GoalieStatsList';
 import PlayerStats from '../PlayerStats/PlayerStats';
 const Collapse = require('react-bootstrap/lib/Collapse');
@@ -97,8 +97,7 @@ class Game extends Component {
   }
 
   render() {
-    let homeScore = 0;
-    let awayScore = 0;
+    console.log("render game " + this.state.gameId);
     let chevronGoals = "glyphicon glyphicon-chevron-down";
     let chevronPlayerStats = "glyphicon glyphicon-chevron-down";
     if (this.state.showGoals) {chevronGoals = "glyphicon glyphicon-chevron-up";}
@@ -114,25 +113,7 @@ class Game extends Component {
         </div>
         <Collapse in={this.state.showGoals} onClick={() => this.setState({showPlayerStats: !this.state.showPlayerStats})}>
           <div>
-            {
-              this.state.goals.map((goal, index) => {
-                if (goal.team.id === this.props.homeTeamId && homeScore < this.props.homeScore) {
-                  homeScore++;
-                } else if (awayScore < this.props.awayScore) {
-                  awayScore++;
-                }
-                const playDesc = goal.playDescription.replace("Goal scored by", "").replace("(Empty Net)", "").replace("Shootout attempt by ", "(PS: ").replace(", scored!", ")");
-                return (
-                  <Goal
-                    key={index}
-                    scoringTeamId={goal.team.id}
-                    homeScore={homeScore}
-                    awayScore={awayScore}
-                    playDesc={playDesc}
-                  />
-                );
-              })
-            }
+            <GoalList goals={this.state.goals} gameId={this.state.gameId} />
             <GoalieStatsList
               homeGoalies={this.state.homeGoalies}
               homeTeamId={this.state.homeTeamId}

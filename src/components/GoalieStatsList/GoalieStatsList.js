@@ -4,6 +4,7 @@ import GoalieStats from '../GoalieStats/GoalieStats';
 class GoalieStatsList extends Component {
 
   render() {
+    console.log("render GoalieStatsList");
     return (
       <div className="">
         {
