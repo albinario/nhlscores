@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './GoalieStats.css';
 import Logos from '../../util/Logos';
 
 class GoalieStats extends Component {
