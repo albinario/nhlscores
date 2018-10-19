@@ -97,7 +97,7 @@ class Game extends Component {
   }
 
   render() {
-    console.log("render game " + this.state.gameId);
+    //console.log("render game " + this.state.gameId);
     let chevronGoals = "glyphicon glyphicon-chevron-down";
     let chevronPlayerStats = "glyphicon glyphicon-chevron-down";
     if (this.state.showGoals) {chevronGoals = "glyphicon glyphicon-chevron-up";}
@@ -113,13 +113,16 @@ class Game extends Component {
         </div>
         <Collapse in={this.state.showGoals} onClick={() => this.setState({showPlayerStats: !this.state.showPlayerStats})}>
           <div>
-            <GoalList goals={this.state.goals} gameId={this.state.gameId} />
-            <GoalieStatsList
-              homeGoalies={this.state.homeGoalies}
+            <GoalList
+              goals={this.state.goals}
               homeTeamId={this.state.homeTeamId}
-              awayGoalies={this.state.awayGoalies}
+              homeScore={this.props.homeScore}
               awayTeamId={this.state.awayTeamId}
+              awayScore={this.props.awayScore}
             />
+            <br/>
+            <GoalieStatsList goalies={this.state.awayGoalies} teamId={this.state.awayTeamId} />
+            <GoalieStatsList goalies={this.state.homeGoalies} teamId={this.state.homeTeamId} />
             <p className="text-center small"><span className={chevronPlayerStats}></span></p>
             <Collapse in={this.state.showPlayerStats}>
               <div>

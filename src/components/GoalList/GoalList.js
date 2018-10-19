@@ -18,7 +18,9 @@ class GoalList extends Component {
           <Goal
             key={index}
             scoringTeamId={goal.team.id}
+            homeTeamId={this.props.homeTeamId}
             homeScore={homeScore}
+            awayTeamId={this.props.awayTeamId}
             awayScore={awayScore}
             playDesc={playDesc}
           />
