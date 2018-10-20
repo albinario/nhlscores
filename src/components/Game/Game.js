@@ -15,6 +15,8 @@ class Game extends Component {
       gameId: this.props.gameId,
       showGoals: false,
       goals: [],
+      homeGoalies: [],
+      awayGoalies: [],
       showPlayerStats: false
     }
   }
@@ -26,6 +28,12 @@ class Game extends Component {
         return period.scoringPlays.map(goal => {
           return this.state.goals.push(goal);
         })
+      })
+    })
+    GamesFeed.getGoalies(this.state.gameId).then(goalies => {
+      this.setState({
+        homeGoalies: goalies.homeGoalies,
+        awayGoalies: goalies.awayGoalies
       })
     })
   }
@@ -44,8 +52,13 @@ class Game extends Component {
         })
       })
     })
+    GamesFeed.getGoalies(nextProps.gameId).then(goalies => {
+      this.setState({
+        homeGoalies: goalies.homeGoalies,
+        awayGoalies: goalies.awayGoalies
+      })
+    })
   }
-}
 
   render() {
     let chevronGoals = "glyphicon glyphicon-chevron-down";
@@ -76,14 +89,14 @@ class Game extends Component {
 
             <GoalList
               goals={this.state.goals}
-              homeTeamId={this.state.homeTeamId}
+              homeTeamId={this.props.homeTeamId}
               homeScore={this.props.homeScore}
-              awayTeamId={this.state.awayTeamId}
+              awayTeamId={this.props.awayTeamId}
               awayScore={this.props.awayScore}
             />
             <br/>
-            <GoalieStatsList goalies={this.state.awayGoalies} teamId={this.state.awayTeamId} />
-            <GoalieStatsList goalies={this.state.homeGoalies} teamId={this.state.homeTeamId} />
+            <GoalieStatsList goalies={this.state.awayGoalies} teamId={this.props.awayTeamId} />
+            <GoalieStatsList goalies={this.state.homeGoalies} teamId={this.props.homeTeamId} />
 
             <p className="text-center small"><span className={chevronPlayerStats}></span></p>
             <Collapse in={this.state.showPlayerStats}>
