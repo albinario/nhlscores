@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './Game.css';
 import GamesFeed from '../../util/GamesFeed';
+import Team from '../Team/Team';
 import GoalList from '../GoalList/GoalList';
 import GoalieStatsList from '../GoalieStatsList/GoalieStatsList';
-import Team from '../Team/Team';
 import PlayerStats from '../PlayerStats/PlayerStats';
 const Collapse = require('react-bootstrap/lib/Collapse');
 
@@ -23,22 +23,26 @@ class Game extends Component {
   }
 
   getGoalsArray(gameId) {
-    GamesFeed.getPeriods(gameId).then(periods => {
-      return periods.map(period => {
-        return period.scoringPlays.map(goal => {
-          return this.state.goals.push(goal);
+    if (this.props.playedStatus) {
+      GamesFeed.getPeriods(gameId).then(periods => {
+        return periods.map(period => {
+          return period.scoringPlays.map(goal => {
+            return this.state.goals.push(goal);
+          })
         })
       })
-    })
+    }
   }
 
   getGoalies(gameId) {
-    GamesFeed.getGoalies(gameId).then(goalies => {
-      this.setState({
-        homeGoalies: goalies.homeGoalies,
-        awayGoalies: goalies.awayGoalies
+    if (this.props.playedStatus) {
+      GamesFeed.getGoalies(gameId).then(goalies => {
+        this.setState({
+          homeGoalies: goalies.homeGoalies,
+          awayGoalies: goalies.awayGoalies
+        })
       })
-    })
+    }
   }
 
   componentDidMount() {
@@ -50,10 +54,16 @@ class Game extends Component {
   componentWillReceiveProps(nextProps) {
     //console.log("Game: componentWillReceiveProps()");
     if (nextProps.gameId !== this.state.gameId) {
-      this.setState({goals: []})
+      this.setState({
+        goals: [],
+        homeGoalies: [],
+        awayGoalies: []
+      })
     }
-    this.getGoalsArray(nextProps.gameId);
-    this.getGoalies(nextProps.gameId);
+    if (nextProps.playedStatus) {
+      this.getGoalsArray(nextProps.gameId);
+      this.getGoalies(nextProps.gameId);
+    }
   }
 
   render() {

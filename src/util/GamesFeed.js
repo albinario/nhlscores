@@ -13,8 +13,13 @@ const GamesFeed = {
           homePeriods.push(period.homeScore);
           awayPeriods.push(period.awayScore);
         });
+        let playedStatus = false;
+        if (game.schedule.playedStatus === "COMPLETED") {
+          playedStatus = true;
+        }
         return {
           gameId: game.schedule.id,
+          playedStatus: playedStatus,
           homeTeamId: homeTeamInfo[0].id,
           homeTeamCity: homeTeamInfo[0].city,
           homeTeamName: homeTeamInfo[0].name,

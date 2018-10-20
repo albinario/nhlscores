@@ -8,7 +8,6 @@ class GoalieStatsList extends Component {
       <div className="">
         {
           this.props.goalies.map((goalie, index) => {
-            console.log(goalie);
             let result = "";
             if (goalie.playerStats[0].goaltending.wins === 1) {
               result = "W";
@@ -19,7 +18,6 @@ class GoalieStatsList extends Component {
             } else {
               result = "-";
             }
-            //const savePercentage = Math.floor(goalie.playerStats[0].goaltending.savePercentage * 100);
             return (
               <GoalieStats
                 key={index}
@@ -28,7 +26,8 @@ class GoalieStatsList extends Component {
                 lastName={goalie.player.lastName}
                 result={result}
                 saves={goalie.playerStats[0].goaltending.saves}
-                goalsAgainst={goalie.playerStats[0].goaltending.goalsAgainst}
+                shotsAgainst={goalie.playerStats[0].goaltending.shotsAgainst}
+                penaltyMinutes={goalie.playerStats[0].penalties.penaltyMinutes}
               />
             )
           })

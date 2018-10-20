@@ -12,8 +12,8 @@ class GameList extends Component {
           return (
             <Game
               key={index}
-              gameInfo={game}
               gameId={game.gameId}
+              playedStatus={game.playedStatus}
               homeTeamId={game.homeTeamId}
               homeTeamCity={game.homeTeamCity}
               homeTeamName={game.homeTeamName}
