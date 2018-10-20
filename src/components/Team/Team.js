@@ -27,8 +27,8 @@ class Team extends Component {
     this.getTeamStats(this.props.teamId);
   }
 
-  componentDidUpdate() {
-    this.getTeamStats(this.props.teamId);
+  componentWillReceiveProps(nextProps) {
+    this.getTeamStats(nextProps.teamId);
   }
 
   render() {
@@ -36,7 +36,7 @@ class Team extends Component {
     return (
       <p>
         <img src={Logos[this.props.teamId]} alt="" /><span className="hidden-xs">{this.props.city} </span>{this.props.name} ({this.state.wins}-{this.state.losses}-{this.state.overtimeLosses})
-        <span className="pull-right"><strong>{this.props.score}</strong> {this.props.periods} </span>
+        <span className="pull-right"><strong>{this.props.score}</strong> {this.props.periods.join(' ')} </span>
       </p>
     );
   }
