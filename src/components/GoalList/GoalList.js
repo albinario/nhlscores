@@ -3,7 +3,7 @@ import Goal from '../Goal/Goal';
 
 class GoalList extends Component {
   render() {
-    //console.log("render GoalList " + this.props.gameId);
+    //console.log("GoalList: render() for Game: " + this.props.gameId);
     let homeScore = 0;
     let awayScore = 0;
     return (

@@ -44,7 +44,7 @@ class Header extends Component {
   }
 
   getTitle() {
-    console.log("Header: getTitle()");
+    //console.log("Header: getTitle()");
     const today = moment(new Date()).format('YYYYMMDD');
     const tomorrow = moment(new Date()).add(1, 'days').format('YYYYMMDD');
     const yesterday = moment(new Date()).subtract(1, 'days').format('YYYYMMDD');
@@ -65,15 +65,15 @@ class Header extends Component {
   }
 
   render() {
-    console.log("Header: render()");
+    //console.log("Header: render()");
     const title = this.getTitle();
     return (
       <div className="row header">
-      <div className="col-xs-1"><span className="glyphicon glyphicon-chevron-left" onClick={this.decreaseDate}></span></div>
-      <div className="col-xs-9 col-sm-10"><h2 className="text-center">{title}</h2></div>
-      <div className="col-xs-1"><span className="glyphicon glyphicon-chevron-right pull-right" onClick={this.increaseDate}></span></div>
+        <div className="col-xs-1"><span className="glyphicon glyphicon-chevron-left" onClick={this.decreaseDate}></span></div>
+        <div className="col-xs-9 col-sm-10"><h2 className="text-center">{title}</h2></div>
+        <div className="col-xs-1"><span className="glyphicon glyphicon-chevron-right pull-right" onClick={this.increaseDate}></span></div>
       </div>
-    )  
+    )
   }
 }
 

@@ -4,7 +4,7 @@ import Game from '../Game/Game';
 
 class GameList extends Component {
   render() {
-    //console.log("render GameList");
+    //console.log("GameList: render()");
     return (
       this.props.games.length > 0 ?
         this.props.games.map((game, index) => {

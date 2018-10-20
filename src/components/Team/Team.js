@@ -32,6 +32,7 @@ class Team extends Component {
   }
 
   render() {
+    //console.log("Team: render()");
     return (
       <p>
         <img src={Logos[this.props.teamId]} alt="" /><span className="hidden-xs">{this.props.city} </span>{this.props.name} ({this.state.wins}-{this.state.losses}-{this.state.overtimeLosses})

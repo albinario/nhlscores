@@ -3,11 +3,12 @@ import GoalieStats from '../GoalieStats/GoalieStats';
 
 class GoalieStatsList extends Component {
   render() {
-    //console.log("render GoalieStatsList");
+    //console.log("GoalieStatsList: render()");
     return (
       <div className="">
         {
           this.props.goalies.map((goalie, index) => {
+            console.log(goalie);
             let result = "";
             if (goalie.playerStats[0].goaltending.wins === 1) {
               result = "W";
@@ -15,8 +16,10 @@ class GoalieStatsList extends Component {
               result = "L";
             } else if (goalie.playerStats[0].goaltending.overtimeLosses === 1) {
               result = "OTL";
+            } else {
+              result = "-";
             }
-            const savePercentage = Math.floor(goalie.playerStats[0].goaltending.savePercentage * 100);
+            //const savePercentage = Math.floor(goalie.playerStats[0].goaltending.savePercentage * 100);
             return (
               <GoalieStats
                 key={index}
@@ -25,8 +28,7 @@ class GoalieStatsList extends Component {
                 lastName={goalie.player.lastName}
                 result={result}
                 saves={goalie.playerStats[0].goaltending.saves}
-                shotsAgainst={goalie.playerStats[0].goaltending.shotsAgainst}
-                savePercentage={savePercentage}
+                goalsAgainst={goalie.playerStats[0].goaltending.goalsAgainst}
               />
             )
           })

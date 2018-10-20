@@ -4,6 +4,7 @@ import Logos from '../../util/Logos';
 
 class Goal extends Component {
   render() {
+    //console.log("Goal: render()");
     return (
       <div className="row">
         <div className="col-xs-1 text-center">{this.props.homeScore}-{this.props.awayScore}</div>
