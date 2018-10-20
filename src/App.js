@@ -12,22 +12,25 @@ class App extends Component {
     this.onDateChange = this.onDateChange.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    //console.log("App: componentDidMount()");
     GamesFeed.getGames('yesterday').then(games => {
       this.setState({games: games})
     });
   }
 
   onDateChange(dateFromHeader) {
+    //console.log("App: onDateChange()");
     GamesFeed.getGames(dateFromHeader).then(games => {
       this.setState({games: games})
     });
   }
 
   render() {
+    //console.log("App: render()");
     return (
       <div className="container">
-        <Header onDateChange={this.onDateChange}/>
+        <Header onDateChange={this.onDateChange} />
         <GameList games={this.state.games} />
       </div>
     );
