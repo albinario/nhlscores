@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './Game.css';
 import GamesFeed from '../../util/GamesFeed';
+import Logos from '../../util/Logos';
+import GoalList from '../GoalList/GoalList';
+import GoalieStatsList from '../GoalieStatsList/GoalieStatsList';
 import Team from '../Team/Team';
-import Goal from '../Goal/Goal';
 import PlayerStats from '../PlayerStats/PlayerStats';
 const Collapse = require('react-bootstrap/lib/Collapse');
 
@@ -18,7 +20,7 @@ class Game extends Component {
   }
 
   componentDidMount() {
-    console.log("Game: componentDidMount()");
+    //console.log("Game: componentDidMount()");
     GamesFeed.getPeriods(this.state.gameId).then(periods => {
       return periods.map(period => {
         return period.scoringPlays.map(goal => {
@@ -29,7 +31,7 @@ class Game extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("Game: componentWillReceiveProps()");
+    //console.log("Game: componentWillReceiveProps()");
     if (nextProps.gameId !== this.state.gameId) {
       this.setState({
         goals: []
@@ -43,11 +45,9 @@ class Game extends Component {
       })
     })
   }
+}
 
   render() {
-    //console.log("Game: render()");
-    let homeScore = 0;
-    let awayScore = 0;
     let chevronGoals = "glyphicon glyphicon-chevron-down";
     let chevronPlayerStats = "glyphicon glyphicon-chevron-down";
     if (this.state.showGoals) {chevronGoals = "glyphicon glyphicon-chevron-up";}
@@ -73,25 +73,18 @@ class Game extends Component {
         </div>
         <Collapse in={this.state.showGoals} onClick={() => this.setState({showPlayerStats: !this.state.showPlayerStats})}>
           <div>
-            {
-              this.state.goals.map((goal, index) => {
-                if (goal.team.id === this.props.homeTeamId && homeScore < this.props.homeScore) {
-                  homeScore++;
-                } else if (awayScore < this.props.awayScore) {
-                  awayScore++;
-                }
-                const playDesc = goal.playDescription.replace("Goal scored by", "").replace("(Empty Net)", "").replace("Shootout attempt by ", "(PS: ").replace(", scored!", ")");
-                return (
-                  <Goal
-                  key={index}
-                  scoringTeamId={goal.team.id}
-                  homeScore={homeScore}
-                  awayScore={awayScore}
-                  playDesc={playDesc}
-                  />
-                );
-              })
-            }
+
+            <GoalList
+              goals={this.state.goals}
+              homeTeamId={this.state.homeTeamId}
+              homeScore={this.props.homeScore}
+              awayTeamId={this.state.awayTeamId}
+              awayScore={this.props.awayScore}
+            />
+            <br/>
+            <GoalieStatsList goalies={this.state.awayGoalies} teamId={this.state.awayTeamId} />
+            <GoalieStatsList goalies={this.state.homeGoalies} teamId={this.state.homeTeamId} />
+
             <p className="text-center small"><span className={chevronPlayerStats}></span></p>
             <Collapse in={this.state.showPlayerStats}>
               <div>
