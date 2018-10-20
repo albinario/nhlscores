@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Game from '../Game/Game';
+//import TeamsFeed from '../../util/TeamsFeed';
 
 class GameList extends Component {
   render() {
@@ -8,9 +9,11 @@ class GameList extends Component {
       <div className="">
       {
         this.props.games.map((game, index) => {
+          //console.log("Rendering game " + game.gameId);
           return (
             <Game
               key={index}
+              gameInfo={game}
               gameId={game.gameId}
               homeTeamId={game.homeTeamId}
               homeTeamCity={game.homeTeamCity}

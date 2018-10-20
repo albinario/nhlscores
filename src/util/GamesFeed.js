@@ -2,6 +2,7 @@ import Connect from './Connect';
 
 const GamesFeed = {
   getGames(date) {
+    //console.log("GamesFeed: getGames()");
     return Connect.connectMainAPI(date).then(jsonResponse => {
       return jsonResponse.games.map((game)=> {
         const homeTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.homeTeam.id; });
@@ -31,6 +32,7 @@ const GamesFeed = {
     });
   },
   getPeriods(gameId) {
+    //console.log("GamesFeed: getPeriods()");
     return Connect.connectGameAPI(gameId).then(jsonResponse => {
       if (jsonResponse) {
         return jsonResponse.scoring.periods;
