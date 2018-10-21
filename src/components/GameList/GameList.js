@@ -1,29 +1,32 @@
 import React, { Component } from 'react';
 import Game from '../Game/Game';
-//import TeamsFeed from '../../util/TeamsFeed';
 
 class GameList extends Component {
   render() {
-    //console.log("GameList: render()");
+    console.log("GameList: render()");
     return (
       this.props.games.length > 0 ?
         this.props.games.map((game, index) => {
-          //console.log("Rendering game " + game.gameId);
           return (
             <Game
               key={index}
               gameId={game.gameId}
               playedStatus={game.playedStatus}
+              goals={game.goals}
               homeTeamId={game.homeTeamId}
               homeTeamCity={game.homeTeamCity}
               homeTeamName={game.homeTeamName}
-              homeScore={game.homeScore}
+              homeRecord={game.homeRecord}
+              homeScoreTotal={game.homeScoreTotal}
               homePeriods={game.homePeriods}
+              homeGoalies={game.homeGoalies}
               awayTeamId={game.awayTeamId}
               awayTeamCity={game.awayTeamCity}
               awayTeamName={game.awayTeamName}
-              awayScore={game.awayScore}
+              awayRecord={game.awayRecord}
+              awayScoreTotal={game.awayScoreTotal}
               awayPeriods={game.awayPeriods}
+              awayGoalies={game.awayGoalies}
             />
           );
         })

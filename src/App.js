@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import GamesFeed from './util/GamesFeed';
-import GameList from './components/GameList/GameList';
+import MainFeed from './util/MainFeed';
 import Header from './components/Header/Header';
+import GameList from './components/GameList/GameList';
 
 class App extends Component {
   constructor(props) {
@@ -10,24 +10,19 @@ class App extends Component {
       games: []
     }
     this.onDateChange = this.onDateChange.bind(this);
-  }
-
-  componentDidMount() {
-    //console.log("App: componentDidMount()");
-    GamesFeed.getGames('yesterday').then(games => {
+    MainFeed.getGames('yesterday').then(games => {
       this.setState({games: games})
     });
   }
 
   onDateChange(dateFromHeader) {
-    //console.log("App: onDateChange()");
-    GamesFeed.getGames(dateFromHeader).then(games => {
+    MainFeed.getGames(dateFromHeader).then(games => {
       this.setState({games: games})
     });
   }
 
   render() {
-    //console.log("App: render()");
+    console.log("App: render()");
     return (
       <div className="container">
         <Header onDateChange={this.onDateChange} />

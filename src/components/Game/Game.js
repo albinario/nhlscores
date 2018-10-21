@@ -1,118 +1,70 @@
 import React, { Component } from 'react';
 import './Game.css';
-import GamesFeed from '../../util/GamesFeed';
 import Team from '../Team/Team';
 import GoalList from '../GoalList/GoalList';
 import GoalieStatsList from '../GoalieStatsList/GoalieStatsList';
-import PlayerStats from '../PlayerStats/PlayerStats';
+import PlayerStatsList from '../PlayerStatsList/PlayerStatsList';
 const Collapse = require('react-bootstrap/lib/Collapse');
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameId: this.props.gameId,
-      showGoals: false,
-      goals: [],
-      homeGoalies: [],
-      awayGoalies: [],
-      showPlayerStats: false
-    }
-    this.getGoalsArray = this.getGoalsArray.bind(this);
-    this.getGoalies = this.getGoalies.bind(this);
-  }
-
-  getGoalsArray(gameId) {
-    if (this.props.playedStatus) {
-      GamesFeed.getPeriods(gameId).then(periods => {
-        return periods.map(period => {
-          return period.scoringPlays.map(goal => {
-            return this.state.goals.push(goal);
-          })
-        })
-      })
-    }
-  }
-
-  getGoalies(gameId) {
-    if (this.props.playedStatus) {
-      GamesFeed.getGoalies(gameId).then(goalies => {
-        this.setState({
-          homeGoalies: goalies.homeGoalies,
-          awayGoalies: goalies.awayGoalies
-        })
-      })
-    }
-  }
-
-  componentDidMount() {
-    //console.log("Game: componentDidMount()");
-    this.getGoalsArray(this.state.gameId);
-    this.getGoalies(this.state.gameId);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    //console.log("Game: componentWillReceiveProps()");
-    if (nextProps.gameId !== this.state.gameId) {
-      this.setState({
-        goals: [],
-        homeGoalies: [],
-        awayGoalies: []
-      })
-    }
-    if (nextProps.playedStatus) {
-      this.getGoalsArray(nextProps.gameId);
-      this.getGoalies(nextProps.gameId);
+      expandFirst: false,
+      expandSecond: false
     }
   }
 
   render() {
-    //console.log("Game: render()");
-    let chevronGoals = "glyphicon glyphicon-chevron-down";
-    let chevronPlayerStats = "glyphicon glyphicon-chevron-down";
-    if (this.state.showGoals) {chevronGoals = "glyphicon glyphicon-chevron-up";}
-    if (this.state.showPlayerStats) {chevronPlayerStats = "glyphicon glyphicon-chevron-up";}
+    console.log("Game: render() " + this.props.homeTeamName + this.props.awayTeamName);
+    let chevronFirst = "glyphicon glyphicon-chevron-down";
+    let chevronSecond = "glyphicon glyphicon-chevron-down";
+    if (this.state.expandFirst) {chevronFirst = "glyphicon glyphicon-chevron-up";}
+    if (this.state.expandSecond) {chevronSecond = "glyphicon glyphicon-chevron-up";}
     return (
       <div className="well well-sm">
-        <div onClick={() => this.setState({showGoals: !this.state.showGoals})}>
+        <div onClick={() => (this.setState({expandFirst: !this.state.expandFirst}))}>
           <Team
             teamId={this.props.awayTeamId}
             city={this.props.awayTeamCity}
             name={this.props.awayTeamName}
-            score={this.props.awayScore}
+            record={this.props.awayRecord}
+            scoreTotal={this.props.awayScoreTotal}
             periods={this.props.awayPeriods}
           />
           <Team
             teamId={this.props.homeTeamId}
             city={this.props.homeTeamCity}
             name={this.props.homeTeamName}
-            score={this.props.homeScore}
+            record={this.props.homeRecord}
+            scoreTotal={this.props.homeScoreTotal}
             periods={this.props.homePeriods}
           />
-          <p className="text-center small"><span className={chevronGoals}></span></p>
+          <p className="text-center small"><span className={chevronFirst}></span></p>
         </div>
-        <Collapse in={this.state.showGoals} onClick={() => this.setState({showPlayerStats: !this.state.showPlayerStats})}>
+        <Collapse in={this.state.expandFirst} onClick={() => (this.setState({expandSecond: !this.state.expandSecond}))}>
           <div>
             <GoalList
-              goals={this.state.goals}
+              gameId={this.props.gameId}
+              goals={this.props.goals}
               homeTeamId={this.props.homeTeamId}
-              homeScore={this.props.homeScore}
+              homeScoreTotal={this.props.homeScoreTotal}
               awayTeamId={this.props.awayTeamId}
-              awayScore={this.props.awayScore}
+              awayScoreTotal={this.props.awayScoreTotal}
             />
             <br/>
             <GoalieStatsList
-              goalies={this.state.awayGoalies}
+              goalies={this.props.awayGoalies}
               teamId={this.props.awayTeamId}
             />
             <GoalieStatsList
-              goalies={this.state.homeGoalies}
+              goalies={this.props.homeGoalies}
               teamId={this.props.homeTeamId}
             />
-            <p className="text-center small"><span className={chevronPlayerStats}></span></p>
-            <Collapse in={this.state.showPlayerStats}>
+            <p className="text-center small"><span className={chevronSecond}></span></p>
+            <Collapse in={this.state.expandSecond}>
               <div>
-                <PlayerStats />
+                <PlayerStatsList />
               </div>
             </Collapse>
           </div>

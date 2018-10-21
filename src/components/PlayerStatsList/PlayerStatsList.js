@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
-
-class PlayerStats extends Component {
+class PlayerStatsList extends Component {
   render() {
-    //console.log("PlayerStats: render()");
+    console.log("PlayerStatsList: render()");
     return (
       <div className="">
         player stats
@@ -12,4 +11,4 @@ class PlayerStats extends Component {
   }
 }
 
-export default PlayerStats;
+export default PlayerStatsList;

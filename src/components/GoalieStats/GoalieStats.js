@@ -3,7 +3,7 @@ import Logos from '../../util/Logos';
 
 class GoalieStats extends Component {
   render() {
-    //console.log("GoalieStats: render()");
+    console.log("GoalieStats: render()");
     let penaltyMinutes = "";
     if (this.props.penaltyMinutes) {
       penaltyMinutes = ` – ${this.props.penaltyMinutes} PIM`;
