@@ -4,7 +4,6 @@ import TeamsFeed from './TeamsFeed';
 
 const MainFeed = {
   getGames(date) {
-    //console.log("GamesFeed: getGames()");
     return Connect.connectMainAPI(date).then(jsonResponse => {
       return jsonResponse.games.map((game)=> {
         const homeTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.homeTeam.id; });
@@ -19,11 +18,10 @@ const MainFeed = {
         let awayRecord = [];
         TeamsFeed.getTeamRecord(homeTeamInfo[0].id).then(record => {
           homeRecord.push(record.wins, record.losses, record.overtimeLosses);
-        })
+        });
         TeamsFeed.getTeamRecord(awayTeamInfo[0].id).then(record => {
           awayRecord.push(record.wins, record.losses, record.overtimeLosses);
-        })
-        //console.log(homeRecord);
+        });
         let playedStatus = false;
         if (game.schedule.playedStatus === "COMPLETED") {
           playedStatus = true;
@@ -47,7 +45,6 @@ const MainFeed = {
 
         return {
           gameId: game.schedule.id,
-          //playedStatus: playedStatus,
           homeTeamId: homeTeamInfo[0].id,
           homeTeamCity: homeTeamInfo[0].city,
           homeTeamName: homeTeamInfo[0].name,

@@ -16,7 +16,7 @@ class Game extends Component {
   }
 
   render() {
-    console.log("Game: render() " + this.props.homeTeamName + this.props.awayTeamName);
+    console.log("Game: render() " + this.props.game.gameId);
     let chevronFirst = "glyphicon glyphicon-chevron-down";
     let chevronSecond = "glyphicon glyphicon-chevron-down";
     if (this.state.expandFirst) {chevronFirst = "glyphicon glyphicon-chevron-up";}
@@ -25,41 +25,41 @@ class Game extends Component {
       <div className="well well-sm">
         <div onClick={() => (this.setState({expandFirst: !this.state.expandFirst}))}>
           <Team
-            teamId={this.props.awayTeamId}
-            city={this.props.awayTeamCity}
-            name={this.props.awayTeamName}
-            record={this.props.awayRecord}
-            scoreTotal={this.props.awayScoreTotal}
-            periods={this.props.awayPeriods}
+            teamId={this.props.game.awayTeamId}
+            city={this.props.game.awayTeamCity}
+            name={this.props.game.awayTeamName}
+            record={this.props.game.awayRecord}
+            scoreTotal={this.props.game.awayScoreTotal}
+            periods={this.props.game.awayPeriods}
           />
           <Team
-            teamId={this.props.homeTeamId}
-            city={this.props.homeTeamCity}
-            name={this.props.homeTeamName}
-            record={this.props.homeRecord}
-            scoreTotal={this.props.homeScoreTotal}
-            periods={this.props.homePeriods}
+            teamId={this.props.game.homeTeamId}
+            city={this.props.game.homeTeamCity}
+            name={this.props.game.homeTeamName}
+            record={this.props.game.homeRecord}
+            scoreTotal={this.props.game.homeScoreTotal}
+            periods={this.props.game.homePeriods}
           />
           <p className="text-center small"><span className={chevronFirst}></span></p>
         </div>
         <Collapse in={this.state.expandFirst} onClick={() => (this.setState({expandSecond: !this.state.expandSecond}))}>
           <div>
             <GoalList
-              gameId={this.props.gameId}
-              goals={this.props.goals}
-              homeTeamId={this.props.homeTeamId}
-              homeScoreTotal={this.props.homeScoreTotal}
-              awayTeamId={this.props.awayTeamId}
-              awayScoreTotal={this.props.awayScoreTotal}
+              gameId={this.props.game.gameId}
+              goals={this.props.game.goals}
+              homeTeamId={this.props.game.homeTeamId}
+              homeScoreTotal={this.props.game.homeScoreTotal}
+              awayTeamId={this.props.game.awayTeamId}
+              awayScoreTotal={this.props.game.awayScoreTotal}
             />
             <br/>
             <GoalieStatsList
-              goalies={this.props.awayGoalies}
-              teamId={this.props.awayTeamId}
+              goalies={this.props.game.awayGoalies}
+              teamId={this.props.game.awayTeamId}
             />
             <GoalieStatsList
-              goalies={this.props.homeGoalies}
-              teamId={this.props.homeTeamId}
+              goalies={this.props.game.homeGoalies}
+              teamId={this.props.game.homeTeamId}
             />
             <p className="text-center small"><span className={chevronSecond}></span></p>
             <Collapse in={this.state.expandSecond}>
