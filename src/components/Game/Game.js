@@ -1,118 +1,70 @@
 import React, { Component } from 'react';
 import './Game.css';
-import GamesFeed from '../../util/GamesFeed';
 import Team from '../Team/Team';
 import GoalList from '../GoalList/GoalList';
-import GoalieStatsList from '../GoalieStatsList/GoalieStatsList';
-import PlayerStats from '../PlayerStats/PlayerStats';
+import GoalieList from '../GoalieList/GoalieList';
+import PlayerList from '../PlayerList/PlayerList';
 const Collapse = require('react-bootstrap/lib/Collapse');
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameId: this.props.gameId,
-      showGoals: false,
-      goals: [],
-      homeGoalies: [],
-      awayGoalies: [],
-      showPlayerStats: false
-    }
-    this.getGoalsArray = this.getGoalsArray.bind(this);
-    this.getGoalies = this.getGoalies.bind(this);
-  }
-
-  getGoalsArray(gameId) {
-    if (this.props.playedStatus) {
-      GamesFeed.getPeriods(gameId).then(periods => {
-        return periods.map(period => {
-          return period.scoringPlays.map(goal => {
-            return this.state.goals.push(goal);
-          })
-        })
-      })
-    }
-  }
-
-  getGoalies(gameId) {
-    if (this.props.playedStatus) {
-      GamesFeed.getGoalies(gameId).then(goalies => {
-        this.setState({
-          homeGoalies: goalies.homeGoalies,
-          awayGoalies: goalies.awayGoalies
-        })
-      })
-    }
-  }
-
-  componentDidMount() {
-    //console.log("Game: componentDidMount()");
-    this.getGoalsArray(this.state.gameId);
-    this.getGoalies(this.state.gameId);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    //console.log("Game: componentWillReceiveProps()");
-    if (nextProps.gameId !== this.state.gameId) {
-      this.setState({
-        goals: [],
-        homeGoalies: [],
-        awayGoalies: []
-      })
-    }
-    if (nextProps.playedStatus) {
-      this.getGoalsArray(nextProps.gameId);
-      this.getGoalies(nextProps.gameId);
+      expandFirst: false,
+      expandSecond: false
     }
   }
 
   render() {
-    //console.log("Game: render()");
-    let chevronGoals = "glyphicon glyphicon-chevron-down";
-    let chevronPlayerStats = "glyphicon glyphicon-chevron-down";
-    if (this.state.showGoals) {chevronGoals = "glyphicon glyphicon-chevron-up";}
-    if (this.state.showPlayerStats) {chevronPlayerStats = "glyphicon glyphicon-chevron-up";}
+    console.log("Game: render() " + this.props.game.gameId);
+    let chevronFirst = "glyphicon glyphicon-chevron-down";
+    let chevronSecond = "glyphicon glyphicon-chevron-down";
+    if (this.state.expandFirst) {chevronFirst = "glyphicon glyphicon-chevron-up";}
+    if (this.state.expandSecond) {chevronSecond = "glyphicon glyphicon-chevron-up";}
     return (
       <div className="well well-sm">
-        <div onClick={() => this.setState({showGoals: !this.state.showGoals})}>
+        <div onClick={() => (this.setState({expandFirst: !this.state.expandFirst}))}>
           <Team
-            teamId={this.props.awayTeamId}
-            city={this.props.awayTeamCity}
-            name={this.props.awayTeamName}
-            score={this.props.awayScore}
-            periods={this.props.awayPeriods}
+            teamId={this.props.game.awayTeamId}
+            city={this.props.game.awayTeamCity}
+            name={this.props.game.awayTeamName}
+            record={this.props.game.awayRecord}
+            scoreTotal={this.props.game.awayScoreTotal}
+            periods={this.props.game.awayPeriods}
           />
           <Team
-            teamId={this.props.homeTeamId}
-            city={this.props.homeTeamCity}
-            name={this.props.homeTeamName}
-            score={this.props.homeScore}
-            periods={this.props.homePeriods}
+            teamId={this.props.game.homeTeamId}
+            city={this.props.game.homeTeamCity}
+            name={this.props.game.homeTeamName}
+            record={this.props.game.homeRecord}
+            scoreTotal={this.props.game.homeScoreTotal}
+            periods={this.props.game.homePeriods}
           />
-          <p className="text-center small"><span className={chevronGoals}></span></p>
+          <p className="text-center small"><span className={chevronFirst}></span></p>
         </div>
-        <Collapse in={this.state.showGoals} onClick={() => this.setState({showPlayerStats: !this.state.showPlayerStats})}>
+        <Collapse in={this.state.expandFirst} onClick={() => (this.setState({expandSecond: !this.state.expandSecond}))}>
           <div>
             <GoalList
-              goals={this.state.goals}
-              homeTeamId={this.props.homeTeamId}
-              homeScore={this.props.homeScore}
-              awayTeamId={this.props.awayTeamId}
-              awayScore={this.props.awayScore}
+              gameId={this.props.game.gameId}
+              goals={this.props.game.goals}
+              homeTeamId={this.props.game.homeTeamId}
+              homeScoreTotal={this.props.game.homeScoreTotal}
+              awayTeamId={this.props.game.awayTeamId}
+              awayScoreTotal={this.props.game.awayScoreTotal}
             />
             <br/>
-            <GoalieStatsList
-              goalies={this.state.awayGoalies}
-              teamId={this.props.awayTeamId}
+            <GoalieList
+              goalies={this.props.game.awayGoalies}
+              teamId={this.props.game.awayTeamId}
             />
-            <GoalieStatsList
-              goalies={this.state.homeGoalies}
-              teamId={this.props.homeTeamId}
+            <GoalieList
+              goalies={this.props.game.homeGoalies}
+              teamId={this.props.game.homeTeamId}
             />
-            <p className="text-center small"><span className={chevronPlayerStats}></span></p>
-            <Collapse in={this.state.showPlayerStats}>
+            <p className="text-center small"><span className={chevronSecond}></span></p>
+            <Collapse in={this.state.expandSecond}>
               <div>
-                <PlayerStats />
+                <PlayerList />
               </div>
             </Collapse>
           </div>

@@ -65,7 +65,7 @@ class Header extends Component {
   }
 
   render() {
-    //console.log("Header: render()");
+    console.log("Header: render()");
     const title = this.getTitle();
     return (
       <div className="row header">

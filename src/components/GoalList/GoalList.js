@@ -3,26 +3,22 @@ import Goal from '../Goal/Goal';
 
 class GoalList extends Component {
   render() {
-    //console.log("GoalList: render() for Game: " + this.props.gameId);
+    console.log("GoalList: render() for Game: " + this.props.gameId);
     let homeScore = 0;
     let awayScore = 0;
     return (
       this.props.goals.map((goal, index) => {
-        if (goal.team.id === this.props.homeTeamId && homeScore < this.props.homeScore) {
+        if (goal.team.id === this.props.homeTeamId && homeScore < this.props.homeScoreTotal) {
           homeScore++;
-        } else if (awayScore < this.props.awayScore) {
+        } else if (awayScore < this.props.awayScoreTotal) {
           awayScore++;
         }
-        const playDesc = goal.playDescription.replace("Goal scored by", "").replace("(Empty Net)", "").replace(", assisted by ", " (").replace(" and", ",").replace(".", "").replace("(unassisted)", "(unassisted").replace("Shootout attempt by ", "(PS: ").replace(", scored!", "")+")";
         return (
           <Goal
             key={index}
-            scoringTeamId={goal.team.id}
-            homeTeamId={this.props.homeTeamId}
+            goal={goal}
             homeScore={homeScore}
-            awayTeamId={this.props.awayTeamId}
             awayScore={awayScore}
-            playDesc={playDesc}
           />
         )
       })
