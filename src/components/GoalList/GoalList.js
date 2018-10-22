@@ -13,16 +13,12 @@ class GoalList extends Component {
         } else if (awayScore < this.props.awayScoreTotal) {
           awayScore++;
         }
-        const playDesc = goal.playDescription.replace("Goal scored by", "").replace("(Empty Net)", "").replace(", assisted by ", " (").replace(" and", ",").replace(".", "").replace("(unassisted)", "(unassisted").replace("Shootout attempt by ", "(PS: ").replace(", scored!", "")+")";
         return (
           <Goal
             key={index}
-            scoringTeamId={goal.team.id}
-            homeTeamId={this.props.homeTeamId}
+            goal={goal}
             homeScore={homeScore}
-            awayTeamId={this.props.awayTeamId}
             awayScore={awayScore}
-            playDesc={playDesc}
           />
         )
       })

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import './Game.css';
 import Team from '../Team/Team';
 import GoalList from '../GoalList/GoalList';
-import GoalieStatsList from '../GoalieStatsList/GoalieStatsList';
-import PlayerStatsList from '../PlayerStatsList/PlayerStatsList';
+import GoalieList from '../GoalieList/GoalieList';
+import PlayerList from '../PlayerList/PlayerList';
 const Collapse = require('react-bootstrap/lib/Collapse');
 
 class Game extends Component {
@@ -53,18 +53,18 @@ class Game extends Component {
               awayScoreTotal={this.props.game.awayScoreTotal}
             />
             <br/>
-            <GoalieStatsList
+            <GoalieList
               goalies={this.props.game.awayGoalies}
               teamId={this.props.game.awayTeamId}
             />
-            <GoalieStatsList
+            <GoalieList
               goalies={this.props.game.homeGoalies}
               teamId={this.props.game.homeTeamId}
             />
             <p className="text-center small"><span className={chevronSecond}></span></p>
             <Collapse in={this.state.expandSecond}>
               <div>
-                <PlayerStatsList />
+                <PlayerList />
               </div>
             </Collapse>
           </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class PlayerStatsList extends Component {
   render() {
-    console.log("PlayerStatsList: render()");
+    console.log("PlayerList: render()");
     return (
       <div className="">
         player stats
