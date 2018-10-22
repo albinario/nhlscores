@@ -42,7 +42,6 @@ const MainFeed = {
             awayGoalies.push(goalies.awayGoalies);
           });
         }
-        console.log(goals);
         return {
           gameId: game.schedule.id,
           homeTeamId: homeTeamInfo[0].id,
