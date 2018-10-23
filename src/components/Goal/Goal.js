@@ -18,7 +18,7 @@ class Goal extends Component {
         {show ?
           <div className="col-xs-1 text-center">{this.props.homeScore}-{this.props.awayScore}</div>
           :
-          <div className="col-xs-1 text-center"></div>
+          <div className="col-xs-1"></div>
         }
         <div className="col-xs-10">
           <img src={Logos[this.props.scoringPlay.team.id]} className="img-goal" alt="" /> {this.props.periodFigure} {show && <span> {minutes}:{seconds} – </span>}{playDesc}{show && <span>)</span>}</div>
