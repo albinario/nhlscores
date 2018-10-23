@@ -26,15 +26,13 @@ const MainFeed = {
         if (game.schedule.playedStatus === "COMPLETED") {
           playedStatus = true;
         }
-        let goals = [];
+        let periodsArray = [];
         let homeGoalies = [];
         let awayGoalies = [];
         if (playedStatus) {
           GamesFeed.getPeriods(game.schedule.id).then(periods => {
             return periods.map(period => {
-              return period.scoringPlays.map(scoringPlay => {
-                return goals.push(scoringPlay);
-              })
+              return periodsArray.push(period);
             })
           })
           GamesFeed.getGoalies(game.schedule.id).then(goalies => {
@@ -59,7 +57,7 @@ const MainFeed = {
           awayPeriods: awayPeriods,
           awayGoalies: awayGoalies,
           playedStatus: playedStatus,
-          goals: goals
+          periods: periodsArray
         }
       });
     }).catch(err => {

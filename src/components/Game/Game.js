@@ -46,7 +46,7 @@ class Game extends Component {
               <div>
                 <GoalList
                   gameId={this.props.game.gameId}
-                  goals={this.props.game.goals}
+                  periods={this.props.game.periods}
                   homeTeamId={this.props.game.homeTeamId}
                   homeScoreTotal={this.props.game.homeScoreTotal}
                   awayTeamId={this.props.game.awayTeamId}

@@ -6,21 +6,45 @@ class GoalList extends Component {
     console.log("GoalList: render() for Game: " + this.props.gameId);
     let homeScore = 0;
     let awayScore = 0;
+    let periodFigure = '';
     return (
-      this.props.goals.map((goal, index) => {
-        if (goal.team.id === this.props.homeTeamId && homeScore < this.props.homeScoreTotal) {
-          homeScore++;
-        } else if (awayScore < this.props.awayScoreTotal) {
-          awayScore++;
-        }
-        return (
-          <Goal
-            key={index}
-            goal={goal}
-            homeScore={homeScore}
-            awayScore={awayScore}
-          />
-        )
+      this.props.periods.map(period => {
+        switch (period.periodNumber) {
+          case 1:
+            periodFigure = 'P1';
+            break;
+          case 2:
+            periodFigure = 'P2';
+            break;
+          case 3:
+            periodFigure = 'P3';
+            break;
+          case 4:
+            periodFigure = 'OT';
+            break;
+          case 5:
+            periodFigure = 'PS';
+            break;
+          default:
+            periodFigure = '';
+            break;
+        };
+        return period.scoringPlays.map((scoringPlay, index) => {
+          if (scoringPlay.team.id === this.props.homeTeamId && homeScore < this.props.homeScoreTotal) {
+            homeScore++;
+          } else if (awayScore < this.props.awayScoreTotal) {
+            awayScore++;
+          }
+          return (
+            <Goal
+              key={index}
+              periodFigure={periodFigure}
+              scoringPlay={scoringPlay}
+              homeScore={homeScore}
+              awayScore={awayScore}
+            />
+          )
+        })
       })
     )
   }
