@@ -58,6 +58,7 @@ const MainFeed = {
           awayScoreTotal: game.score.awayScoreTotal,
           awayPeriods: awayPeriods,
           awayGoalies: awayGoalies,
+          playedStatus: playedStatus,
           goals: goals
         }
       });
