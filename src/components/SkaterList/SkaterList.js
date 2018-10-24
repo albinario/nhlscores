@@ -5,7 +5,6 @@ import Skater from '../Skater/Skater';
 class SkaterList extends Component {
   render() {
     console.log("SkaterList: render()");
-    console.log(this.props.skaters);
     return (
       <div className="">
         <div className="row">
