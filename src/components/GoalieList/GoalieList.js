@@ -7,9 +7,8 @@ class GoalieList extends Component {
     return (
       <div className="">
       {
-        this.props.goalies.map((goalies, index) => {
+        this.props.goalies.map(goalies => {
           return goalies.map((goalie, index) => {
-
             return (
               <Goalie
                 key={index}

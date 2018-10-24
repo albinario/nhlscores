@@ -1,5 +1,5 @@
 import Connect from './Connect';
-import GamesFeed from './GamesFeed';
+import GameFeed from './GameFeed';
 import TeamsFeed from './TeamsFeed';
 
 const MainFeed = {
@@ -29,15 +29,19 @@ const MainFeed = {
         let periodsArray = [];
         let homeGoalies = [];
         let awayGoalies = [];
+        let homeSkaters = [];
+        let awaySkaters = [];
         if (playedStatus) {
-          GamesFeed.getPeriods(game.schedule.id).then(periods => {
+          GameFeed.getPeriods(game.schedule.id).then(periods => {
             return periods.map(period => {
               return periodsArray.push(period);
             })
           })
-          GamesFeed.getGoalies(game.schedule.id).then(goalies => {
-            homeGoalies.push(goalies.homeGoalies);
-            awayGoalies.push(goalies.awayGoalies);
+          GameFeed.getPlayers(game.schedule.id).then(players => {
+            homeGoalies.push(players.homeGoalies);
+            awayGoalies.push(players.awayGoalies);
+            homeSkaters.push(players.homeSkaters);
+            awaySkaters.push(players.awaySkaters);
           });
         }
         return {
@@ -49,6 +53,7 @@ const MainFeed = {
           homeScoreTotal: game.score.homeScoreTotal,
           homePeriods: homePeriods,
           homeGoalies: homeGoalies,
+          homeSkaters: homeSkaters,
           awayTeamId: awayTeamInfo[0].id,
           awayTeamCity: awayTeamInfo[0].city,
           awayTeamName: awayTeamInfo[0].name,
@@ -56,6 +61,7 @@ const MainFeed = {
           awayScoreTotal: game.score.awayScoreTotal,
           awayPeriods: awayPeriods,
           awayGoalies: awayGoalies,
+          awaySkaters: awaySkaters,
           playedStatus: playedStatus,
           periods: periodsArray
         }
