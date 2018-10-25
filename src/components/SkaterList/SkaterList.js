@@ -9,7 +9,7 @@ class SkaterList extends Component {
       <div className="">
         <div className="row">
           <div className="col-xs-1"></div>
-          <div className="col-xs-4 col-sm-6">
+          <div className="col-xs-4 col-sm-3">
             <img src={Logos[this.props.teamId]} className="img-goal" alt="" />
           </div>
           <div className="col-xs-1 text-center"><strong>G</strong></div>

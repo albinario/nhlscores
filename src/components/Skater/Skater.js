@@ -6,7 +6,7 @@ class Skater extends Component {
     return (
       <div className="row">
         <div className="col-xs-1 text-right">{this.props.skater.player.jerseyNumber}</div>
-        <div className="col-xs-4 col-sm-6">
+        <div className="col-xs-4 col-sm-3">
           <span className="hidden-xs">{this.props.skater.player.firstName} </span>{this.props.skater.player.lastName}
         </div>
         <div className="col-xs-1 text-center">{this.props.skater.playerStats[0].scoring.goals}</div>
