@@ -42,7 +42,9 @@ class Game extends Component {
             scoreTotal={this.props.game.homeScoreTotal}
             periods={this.props.game.homePeriods}
           />
-          <p className="text-center small">Stats <span className={chevronFirst}></span></p>
+          {this.props.game.playedStatus &&
+            <p className="text-center small">Stats <span className={chevronFirst}></span></p>
+          }
         </div>
           {this.props.game.playedStatus &&
             <Collapse in={this.state.expandFirst} onClick={() => (this.setState({expandSecond: !this.state.expandSecond}))}>
