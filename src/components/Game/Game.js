@@ -17,11 +17,13 @@ class Game extends Component {
 
   render() {
     console.log("Game: render() " + this.props.game.gameId);
+    let chevronFirst = "glyphicon glyphicon-chevron-down";
     let chevronSecond = "glyphicon glyphicon-chevron-down";
+    if (this.state.expandFirst) {chevronFirst = "glyphicon glyphicon-chevron-up";}
     if (this.state.expandSecond) {chevronSecond = "glyphicon glyphicon-chevron-up";}
     return (
       <div className="well well-sm">
-        <div onClick={() => (this.setState({expandFirst: !this.state.expandFirst}))}>
+        <div className="chevron" onClick={() => (this.setState({expandFirst: !this.state.expandFirst}))}>
           <Team
             teamId={this.props.game.awayTeamId}
             city={this.props.game.awayTeamCity}
@@ -40,6 +42,7 @@ class Game extends Component {
             scoreTotal={this.props.game.homeScoreTotal}
             periods={this.props.game.homePeriods}
           />
+          <p className="text-center small">Stats <span className={chevronFirst}></span></p>
         </div>
           {this.props.game.playedStatus &&
             <Collapse in={this.state.expandFirst} onClick={() => (this.setState({expandSecond: !this.state.expandSecond}))}>
@@ -61,6 +64,7 @@ class Game extends Component {
                   goalies={this.props.game.homeGoalies}
                   teamId={this.props.game.homeTeamId}
                 />
+                <br/>
                 <p className="text-center small">Skaters <span className={chevronSecond}></span></p>
                 <Collapse in={this.state.expandSecond}>
                   <div>
