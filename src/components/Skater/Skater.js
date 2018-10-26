@@ -14,6 +14,8 @@ class Skater extends Component {
         <div className="col-xs-1 text-center">{this.props.skater.playerStats[0].skating.plusMinus}</div>
         <div className="col-xs-1 text-center">{this.props.skater.playerStats[0].skating.shots}</div>
         <div className="col-xs-1 text-center">{this.props.skater.playerStats[0].penalties.penaltyMinutes}</div>
+        <div className="hidden-xs col-sm-1 text-center">{this.props.skater.playerStats[0].skating.hits}</div>
+        <div className="hidden-xs col-sm-1 text-center">{this.props.skater.playerStats[0].skating.blockedShots}</div>
       </div>
     );
   }

@@ -61,7 +61,7 @@ class Game extends Component {
                   goalies={this.props.game.homeGoalies}
                   teamId={this.props.game.homeTeamId}
                 />
-                <p className="text-center small"><span className={chevronSecond}></span></p>
+                <p className="text-center small">Skaters <span className={chevronSecond}></span></p>
                 <Collapse in={this.state.expandSecond}>
                   <div>
                     <SkaterList

@@ -16,7 +16,9 @@ class SkaterList extends Component {
           <div className="col-xs-1 text-center"><strong>A</strong></div>
           <div className="col-xs-1 text-center"><strong>+/-</strong></div>
           <div className="col-xs-1 text-center"><strong>S</strong></div>
-          <div className="col-xs-1 text-center"><strong>P</strong></div>
+          <div className="col-xs-1 text-center"><strong>PM</strong></div>
+          <div className="hidden-xs col-sm-1 text-center"><strong>H</strong></div>
+          <div className="hidden-xs col-sm-1 text-center"><strong>B</strong></div>
         </div>
       {
         this.props.skaters.map(skaters => {
