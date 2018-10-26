@@ -7,11 +7,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      games: []
+      games: [],
+      message: 'Loading games...'
     }
     this.onDateChange = this.onDateChange.bind(this);
     MainFeed.getGames('yesterday').then(games => {
-      this.setState({games: games})
+      this.setState({
+        games: games,
+        message: 'No games scheduled this day'
+      })
     });
   }
 
@@ -26,7 +30,7 @@ class App extends Component {
     return (
       <div className="container">
         <Header onDateChange={this.onDateChange} />
-        <GameList games={this.state.games} />
+        <GameList games={this.state.games} message={this.state.message} />
       </div>
     );
   }

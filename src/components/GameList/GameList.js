@@ -16,7 +16,7 @@ class GameList extends Component {
         })
       :
       <div>
-        No games scheduled this day
+        {this.props.message}
       </div>
     );
   }
