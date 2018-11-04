@@ -23,12 +23,11 @@ class Game extends Component {
     if (this.state.expandSecond) {chevronSecond = "glyphicon glyphicon-chevron-up";}
     return (
       <div className="well well-sm">
-        <div className="chevron" onClick={() => (this.setState({expandFirst: !this.state.expandFirst}))}>
+        <div onClick={() => (this.setState({expandFirst: !this.state.expandFirst}))}>
           <Team
             teamId={this.props.game.awayTeamId}
             city={this.props.game.awayTeamCity}
             name={this.props.game.awayTeamName}
-            record={this.props.game.awayRecord}
             playedStatus={this.props.game.playedStatus}
             scoreTotal={this.props.game.awayScoreTotal}
             periods={this.props.game.awayPeriods}
@@ -37,7 +36,6 @@ class Game extends Component {
             teamId={this.props.game.homeTeamId}
             city={this.props.game.homeTeamCity}
             name={this.props.game.homeTeamName}
-            record={this.props.game.homeRecord}
             playedStatus={this.props.game.playedStatus}
             scoreTotal={this.props.game.homeScoreTotal}
             periods={this.props.game.homePeriods}

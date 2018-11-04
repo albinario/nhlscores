@@ -5,7 +5,7 @@ import Logos from '../../util/Logos';
 class Goal extends Component {
   render() {
     console.log("Goal: render()");
-    const playDesc = this.props.scoringPlay.playDescription.replace("Goal scored by", "").replace("(Empty Net)", "").replace(", assisted by ", " (").replace(" and", ",").replace(/\./g, "").replace("(unassisted)", "(unassisted").replace("Shootout attempt by ", " – ").replace(", scored!", "");
+    const playDesc = this.props.scoringPlay.playDescription.replace("Goal scored by", "").replace("(Empty Net)", "").replace(", assisted by ", " (").replace(" and", ",").replace(/\./g, "").replace("(unassisted)", "(unassisted").replace("Shootout attempt by ", " – ").replace(", scored!", "").replace("Penalty shot awarded to ", "(PS: ");
     const periodSecondsElapsed = this.props.scoringPlay.periodSecondsElapsed;
     const minutes = Math.floor(periodSecondsElapsed / 60);
     const seconds = ('0' + (periodSecondsElapsed % 60)).slice(-2);
