@@ -16,7 +16,6 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    //console.log("Header: componentDidMount");
     let newDate = moment().subtract(1, 'days').format('YYYYMMDD');
     this.setState({
       date: newDate
@@ -24,7 +23,6 @@ class Header extends Component {
   }
 
   setDate() {
-    //console.log("Header: setDate()");
     let newDate = moment(new Date()).add(this.state.day, 'days').format('YYYYMMDD');
     this.setState({date: newDate});
     this.props.onDateChange(this.state.date);
@@ -32,19 +30,16 @@ class Header extends Component {
   }
 
   async increaseDate() {
-    //console.log("Header: increaseDate()");
     await this.setState({day: this.state.day + 1})
     this.setDate();
   }
 
   async decreaseDate() {
-    //console.log("Header: decreaseDate()");
     await this.setState({day: this.state.day - 1})
     this.setDate();
   }
 
   getTitle() {
-    //console.log("Header: getTitle()");
     const today = moment(new Date()).format('YYYYMMDD');
     const tomorrow = moment(new Date()).add(1, 'days').format('YYYYMMDD');
     const yesterday = moment(new Date()).subtract(1, 'days').format('YYYYMMDD');
@@ -59,7 +54,7 @@ class Header extends Component {
       return "Yesterday";
     }
     else {
-      const beautifyOtherDays = moment(currentDate).format('MMMM Do YYYY');;
+      const beautifyOtherDays = moment(currentDate).format('MMM Do');;
       return beautifyOtherDays;
     }
   }
