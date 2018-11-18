@@ -2,7 +2,6 @@ import Connect from './Connect';
 
 const GameFeed = {
   getPeriods(gameId) {
-    //console.log("GamesFeed: getPeriods()");
     return Connect.connectGameAPI(gameId).then(jsonResponse => {
       if (jsonResponse) {
         return jsonResponse.scoring.periods;

@@ -7,22 +7,23 @@ const MainFeed = {
       return jsonResponse.games.map(game => {
         const homeTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.homeTeam.id; });
         const awayTeamInfo = jsonResponse.references.teamReferences.filter(team => { return team.id === game.schedule.awayTeam.id; });
-        let homePeriods = [];
-        let awayPeriods = [];
-        game.score.periods.forEach(period => {
-          homePeriods.push(period.homeScore);
-          awayPeriods.push(period.awayScore);
-        });
+        const startTime = game.schedule.startTime;
         let playedStatus = false;
         if (game.schedule.playedStatus === "COMPLETED") {
           playedStatus = true;
         }
+        let homePeriods = [];
+        let awayPeriods = [];
         let periodsArray = [];
         let homeGoalies = [];
         let awayGoalies = [];
         let homeSkaters = [];
         let awaySkaters = [];
         if (playedStatus) {
+          game.score.periods.forEach(period => {
+            homePeriods.push(period.homeScore);
+            awayPeriods.push(period.awayScore);
+          });
           GameFeed.getPeriods(game.schedule.id).then(periods => {
             return periods.map(period => {
               return periodsArray.push(period);
@@ -37,6 +38,7 @@ const MainFeed = {
         }
         return {
           gameId: game.schedule.id,
+          startTime: startTime,
           homeTeamId: homeTeamInfo[0].id,
           homeTeamCity: homeTeamInfo[0].city,
           homeTeamName: homeTeamInfo[0].name,

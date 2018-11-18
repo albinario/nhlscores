@@ -31,6 +31,7 @@ class Game extends Component {
             playedStatus={this.props.game.playedStatus}
             scoreTotal={this.props.game.awayScoreTotal}
             periods={this.props.game.awayPeriods}
+            startTime={this.props.game.startTime}
           />
           <Team
             teamId={this.props.game.homeTeamId}
