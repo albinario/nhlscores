@@ -30,20 +30,17 @@ class Team extends Component {
 
   render() {
     console.log("Team: render() " + this.props.name);
-    let show = false;
-    let startTime = '';
-    if (this.props.startTime) {
-      show = true;
-      startTime = this.props.startTime.replace('T', ' ').replace('Z', '').replace('.000', '');
-    }
+    const startTime = new Date(this.props.startTime);
+    const hh = ('0' + startTime.getUTCHours()).slice(-2);
+    const mm = startTime.getUTCMinutes() + '0';
     return (
       <p>
         <img src={Logos[this.props.teamId]} alt="" /><span className="hidden-xs">{this.props.city} </span>{this.props.name} ({this.state.record.join('-')})
           {this.props.playedStatus ?
             <span className="pull-right"><strong>{this.props.scoreTotal}</strong> {this.props.periods.join(' ')}</span>
             :
-            show &&
-              <span className="pull-right">{startTime}</span>
+            this.props.startTime &&
+              <span className="pull-right">{hh}:{mm}</span>
           }
       </p>
     );

@@ -21,7 +21,7 @@ class Goalie extends Component {
     return (
       <div className="row">
         <div className="col-xs-1"></div>
-        <div className="col-xs-10 col-sm-4">
+        <div className="col-xs-10 col-md-5">
           <img src={Logos[this.props.teamId]} className="img-goal" alt="" />
           <span className="hidden-xs"> {this.props.goalie.player.firstName}</span> {this.props.goalie.player.lastName} ({result})
           <span className="pull-right">{this.props.goalie.playerStats[0].goaltending.saves} / {this.props.goalie.playerStats[0].goaltending.shotsAgainst} SA{penaltyMinutes}</span>
