@@ -10,8 +10,9 @@ class Team extends Component {
     }
     this.setRecord = this.setRecord.bind(this);
   }
-  setRecord(teamId) {
-    TeamsFeed.getTeamRecord(teamId).then(record => {
+
+  setRecord() {
+    TeamsFeed.getTeamRecord(this.props.teamId).then(record => {
       this.setState({
         record: [record.wins, record.losses, record.overtimeLosses]
       })
@@ -19,12 +20,12 @@ class Team extends Component {
   }
 
   componentDidMount() {
-    this.setRecord(this.props.teamId);
+    this.setRecord();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.teamId !== prevProps.teamId) {
-      this.setRecord(this.props.teamId);
+      this.setRecord();
     }
   }
 
@@ -32,7 +33,7 @@ class Team extends Component {
     console.log("Team: render() " + this.props.name);
     const startTime = new Date(this.props.startTime);
     const hh = ('0' + startTime.getUTCHours()).slice(-2);
-    const mm = startTime.getUTCMinutes() + '0';
+    const mm = ('0' + startTime.getUTCMinutes()).slice(-2);
     return (
       <p>
         <img src={Logos[this.props.teamId]} alt="" /><span className="hidden-xs">{this.props.city} </span>{this.props.name} ({this.state.record.join('-')})
