@@ -33,7 +33,7 @@ class Team extends Component {
   render() {
     console.log("Team: render() " + this.props.name);
     let showExtra = false;
-    if (this.props.extra) {
+    if (this.props.extra && this.props.winningTeam === this.props.teamId) {
       showExtra = true;
     }
     const startTime = new Date(this.props.startTime);
@@ -43,9 +43,7 @@ class Team extends Component {
       <p className="height">
         <img src={Logos[this.props.teamId]} alt="" /><span className="hidden-xs">{this.props.city} </span>{this.props.name} <span className="label label-default">{this.state.record.join('-')}</span>
           {this.props.playedStatus ?
-            <span className="pull-right btn btn-default btn-sm">
-              {showExtra && this.props.extra} <strong>{this.props.scoreTotal}</strong>
-            </span>
+            <span className="pull-right btn btn-default btn-sm">{showExtra && this.props.extra} <strong>{this.props.scoreTotal}</strong></span>
             :
             this.props.startTime &&
               <span className="pull-right btn btn-default btn-sm">{hh}:{mm}</span>

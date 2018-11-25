@@ -15,12 +15,18 @@ const MainFeed = {
         // let homePeriods = [];
         // let awayPeriods = [];
         let extra = '';
+        let winningTeam = 0;
         let periodsArray = [];
         let homeGoalies = [];
         let awayGoalies = [];
         let homeSkaters = [];
         let awaySkaters = [];
         if (playedStatus) {
+          if (game.score.homeScoreTotal > game.score.awayScoreTotal) {
+            winningTeam = homeTeamInfo[0].id;
+          } else {
+            winningTeam = awayTeamInfo[0].id;
+          }
           // game.score.periods.forEach(period => {
           //   homePeriods.push(period.homeScore);
           //   awayPeriods.push(period.awayScore);
@@ -61,7 +67,8 @@ const MainFeed = {
           awaySkaters: awaySkaters,
           playedStatus: playedStatus,
           periods: periodsArray,
-          extra: extra
+          extra: extra,
+          winningTeam: winningTeam
         }
       });
     }).catch(err => {
