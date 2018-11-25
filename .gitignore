@@ -23,6 +23,7 @@ yarn.lock
 
 node_modules/
 src/util/Config.js
+src/logos/
 package.json
 package-lock.json
 
