@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Team.css';
 import Logos from '../../util/Logos';
 import TeamsFeed from '../../util/TeamsFeed';
 
@@ -31,17 +32,23 @@ class Team extends Component {
 
   render() {
     console.log("Team: render() " + this.props.name);
+    let showExtra = false;
+    if (this.props.extra) {
+      showExtra = true;
+    }
     const startTime = new Date(this.props.startTime);
     const hh = ('0' + startTime.getUTCHours()).slice(-2);
     const mm = ('0' + startTime.getUTCMinutes()).slice(-2);
     return (
-      <p>
-        <img src={Logos[this.props.teamId]} alt="" /><span className="hidden-xs">{this.props.city} </span>{this.props.name} ({this.state.record.join('-')})
+      <p className="height">
+        <img src={Logos[this.props.teamId]} alt="" /><span className="hidden-xs">{this.props.city} </span>{this.props.name} <span className="label label-default">{this.state.record.join('-')}</span>
           {this.props.playedStatus ?
-            <span className="pull-right"><strong>{this.props.scoreTotal}</strong> {this.props.periods.join(' ')}</span>
+            <span className="pull-right btn btn-default btn-sm">
+              {showExtra && this.props.extra} <strong>{this.props.scoreTotal}</strong>
+            </span>
             :
             this.props.startTime &&
-              <span className="pull-right">{hh}:{mm}</span>
+              <span className="pull-right btn btn-default btn-sm">{hh}:{mm}</span>
           }
       </p>
     );

@@ -45,13 +45,13 @@ class Header extends Component {
     const yesterday = moment(new Date()).subtract(1, 'days').format('YYYYMMDD');
     const currentDate = this.state.date;
     if(today === currentDate) {
-      return "Today";
+      return "Tonight";
     }
     else if(tomorrow === currentDate) {
       return "Tomorrow";
     }
     else if(yesterday === currentDate) {
-      return "Yesterday";
+      return "Last night";
     }
     else {
       const beautifyOtherDays = moment(currentDate).format('MMM Do');;

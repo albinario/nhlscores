@@ -12,23 +12,29 @@ const MainFeed = {
         if (game.schedule.playedStatus === "COMPLETED") {
           playedStatus = true;
         }
-        let homePeriods = [];
-        let awayPeriods = [];
+        // let homePeriods = [];
+        // let awayPeriods = [];
+        let extra = '';
         let periodsArray = [];
         let homeGoalies = [];
         let awayGoalies = [];
         let homeSkaters = [];
         let awaySkaters = [];
         if (playedStatus) {
-          game.score.periods.forEach(period => {
-            homePeriods.push(period.homeScore);
-            awayPeriods.push(period.awayScore);
-          });
+          // game.score.periods.forEach(period => {
+          //   homePeriods.push(period.homeScore);
+          //   awayPeriods.push(period.awayScore);
+          // });
+          if (game.score.periods.length === 4) {
+            extra = 'OT';
+          } else if (game.score.periods.length === 5) {
+            extra = 'PS';
+          }
           GameFeed.getPeriods(game.schedule.id).then(periods => {
             return periods.map(period => {
               return periodsArray.push(period);
             })
-          })
+          });
           GameFeed.getPlayers(game.schedule.id).then(players => {
             homeGoalies.push(players.homeGoalies);
             awayGoalies.push(players.awayGoalies);
@@ -43,18 +49,19 @@ const MainFeed = {
           homeTeamCity: homeTeamInfo[0].city,
           homeTeamName: homeTeamInfo[0].name,
           homeScoreTotal: game.score.homeScoreTotal,
-          homePeriods: homePeriods,
+          // homePeriods: homePeriods,
           homeGoalies: homeGoalies,
           homeSkaters: homeSkaters,
           awayTeamId: awayTeamInfo[0].id,
           awayTeamCity: awayTeamInfo[0].city,
           awayTeamName: awayTeamInfo[0].name,
           awayScoreTotal: game.score.awayScoreTotal,
-          awayPeriods: awayPeriods,
+          // awayPeriods: awayPeriods,
           awayGoalies: awayGoalies,
           awaySkaters: awaySkaters,
           playedStatus: playedStatus,
-          periods: periodsArray
+          periods: periodsArray,
+          extra: extra
         }
       });
     }).catch(err => {

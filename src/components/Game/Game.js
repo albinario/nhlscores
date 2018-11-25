@@ -30,8 +30,9 @@ class Game extends Component {
             name={this.props.game.awayTeamName}
             playedStatus={this.props.game.playedStatus}
             scoreTotal={this.props.game.awayScoreTotal}
-            periods={this.props.game.awayPeriods}
+            //periods={this.props.game.awayPeriods}
             startTime={this.props.game.startTime}
+            extra={this.props.game.extra}
           />
           <Team
             teamId={this.props.game.homeTeamId}
@@ -39,7 +40,7 @@ class Game extends Component {
             name={this.props.game.homeTeamName}
             playedStatus={this.props.game.playedStatus}
             scoreTotal={this.props.game.homeScoreTotal}
-            periods={this.props.game.homePeriods}
+            //periods={this.props.game.homePeriods}
           />
           {this.props.game.playedStatus &&
             <p className="text-center small">Stats <span className={chevronFirst}></span></p>
