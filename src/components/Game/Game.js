@@ -30,7 +30,6 @@ class Game extends Component {
             name={this.props.game.awayTeamName}
             playedStatus={this.props.game.playedStatus}
             scoreTotal={this.props.game.awayScoreTotal}
-            //periods={this.props.game.awayPeriods}
             extra={this.props.game.extra}
             winningTeam={this.props.game.winningTeam}
             startTime={this.props.game.startTime}
@@ -40,8 +39,7 @@ class Game extends Component {
             city={this.props.game.homeTeamCity}
             name={this.props.game.homeTeamName}
             playedStatus={this.props.game.playedStatus}
-            scoreTotal={this.props.game.homeScoreTotal}
-            //periods={this.props.game.homePeriods}
+            scoreTotal={this.props.game.homeScoreTotal}            
             extra={this.props.game.extra}
             winningTeam={this.props.game.winningTeam}
           />

@@ -7,6 +7,7 @@ class GoalList extends Component {
     let homeScore = 0;
     let awayScore = 0;
     let periodFigure = '';
+    let gwg = false;
     return (
       this.props.periods.map(period => {
         switch (period.periodNumber) {
@@ -35,6 +36,11 @@ class GoalList extends Component {
           } else if (awayScore < this.props.awayScoreTotal) {
             awayScore++;
           }
+          if ((homeScore === this.props.awayScoreTotal + 1 || awayScore === this.props.homeScoreTotal + 1) && !gwg) {
+            gwg = true;
+          } else {
+            gwg = false;
+          }
           return (
             <Goal
               key={index}
@@ -42,6 +48,7 @@ class GoalList extends Component {
               scoringPlay={scoringPlay}
               homeScore={homeScore}
               awayScore={awayScore}
+              gwg={gwg}
             />
           )
         })

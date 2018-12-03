@@ -16,7 +16,10 @@ class Goal extends Component {
     return (
       <div className="row">
         {show ?
-          <div className="col-xs-1 text-center">{this.props.homeScore}-{this.props.awayScore}</div>
+          <div className="col-xs-1 text-center">
+            {this.props.homeScore}-{this.props.awayScore}
+            {this.props.gwg && '*'}
+          </div>
           :
           <div className="col-xs-1"></div>
         }
